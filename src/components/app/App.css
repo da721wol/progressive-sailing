@@ -1,4 +1,11 @@
 .App {
+  display: grid;
+  height: 100vh;
+  grid-template-areas:
+    "header"
+    "content"
+    "navbar";
+  grid-template-rows: 80px 1fr 80px;
   text-align: center;
 }
 
@@ -7,16 +14,19 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  grid-area: header;
+  background-color: #63c8ff;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #000000;
 }
 
-.App-link {
-  color: #09d3ac;
+.App-content {
+  grid-area: content;
+}
+
+/* Place the navbar at the bottom of the page, and make it stick */
+.Nav-Panel {
+  grid-area: navbar;
+  background-color: #a8a8a8;
+  height: 100%;
 }

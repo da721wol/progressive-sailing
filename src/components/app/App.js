@@ -2,6 +2,7 @@ import React from 'react';
 import logo from '../../assets/images/logo.svg';
 import './App.css';
 import Client from '@signalk/client';
+import NavBav from '../nav-bar/NavBav'
 
 class SignalKClient extends React.Component {
   constructor(props) {
@@ -59,17 +60,15 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        Hello World
+      </header>
+      <div className="App-content">
         <img src={logo} className="App-logo" alt="logo" />
         <SignalKClient/>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      </div>
+      <div className="Nav-Panel" >
+        <NavBav/>
+      </div>
     </div>
   );
 }
