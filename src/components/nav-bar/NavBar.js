@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './NavBar.css';
 import logIcon from '../../assets/icons/menu_book.svg';
 import mapIcon from '../../assets/icons/map.svg';
@@ -6,7 +7,9 @@ import instrumentPanelIcon from '../../assets/icons/sextant.svg';
 import statisticsIcon from '../../assets/icons/insert_chart.svg';
 import settingsIcon from '../../assets/icons/settings_applications.svg';
 
-class NavBav extends React.Component {
+const Logs = lazy(() => import('../../routes/logs-overview/LogsOverview'));
+
+class NavBar extends React.Component {
   render() {
     return (
       <div className="nav-bar">
@@ -35,4 +38,4 @@ class NavBav extends React.Component {
   }
 }
 
-export default NavBav;
+export default NavBar;
