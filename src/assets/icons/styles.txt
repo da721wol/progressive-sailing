@@ -1,0 +1,7 @@
+style={{fillRule:'evenodd',clipRule:'evenodd',strokeLinejoin:'round',strokeMiterlimit:2}}
+
+style={{fill:'none'}}
+
+style={{fill:'none'}}
+
+style={{fontFamily:'Muli-Regular',fontSize:'138px'}}

@@ -6,10 +6,10 @@ import {
   Link
 } from 'react-router-dom';
 import './App.css';
-import Client from '@signalk/client';
+
 import logIcon from "../../assets/icons/menu_book.svg";
 import mapIcon from "../../assets/icons/map.svg";
-import logo from '../../assets/images/logo.svg'
+
 import instrumentPanelIcon from "../../assets/icons/sextant.svg";
 import statisticsIcon from "../../assets/icons/insert_chart.svg";
 import settingsIcon from "../../assets/icons/settings_applications.svg";
@@ -17,57 +17,57 @@ import settingsIcon from "../../assets/icons/settings_applications.svg";
 const Logs = lazy(() => import('../../routes/logs-overview/LogsOverview'));
 
 
-class SignalKClient extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      client: new Client({
-        hostname: 'localhost',
-        port: 3000,
-        useTLS: false,
-        reconnect: true,
-        autoConnect: false,
-      }),
-      subscription: {
-        context: 'vessels.self',
-        subscribe: [{path: 'navigation.position'}]
-      },
-      position: {
-        longitude: 0,
-        latitude: 0
-      }
-    };
-  }
-
-  connect() {
-    if (this.state.client) {
-      this.state.client.connect().then(() => this.state.client.subscribe(this.state.subscription));
-
-      this.state.client.on('delta', delta => {
-        const position = {
-          longitude: delta.updates[0].values[0].value.longitude,
-          latitude: delta.updates[0].values[0].value.latitude
-        };
-        this.setState({
-          position: position
-        })
-      })
-    }
-  }
-
-  render() {
-    let longitude = this.state.position.longitude;
-    let latitude = this.state.position.latitude;
-
-    return (
-      <div className="position">
-        <button onClick={() => this.connect()}>Connect</button>
-        <div>Longitude: {longitude}</div>
-        <div>Latitude: {latitude}</div>
-      </div>
-    );
-  }
-}
+// class SignalKClient extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       client: new Client({
+//         hostname: 'localhost',
+//         port: 3000,
+//         useTLS: false,
+//         reconnect: true,
+//         autoConnect: false,
+//       }),
+//       subscription: {
+//         context: 'vessels.self',
+//         subscribe: [{path: 'navigation.position'}]
+//       },
+//       position: {
+//         longitude: 0,
+//         latitude: 0
+//       }
+//     };
+//   }
+//
+//   connect() {
+//     if (this.state.client) {
+//       this.state.client.connect().then(() => this.state.client.subscribe(this.state.subscription));
+//
+//       this.state.client.on('delta', delta => {
+//         const position = {
+//           longitude: delta.updates[0].values[0].value.longitude,
+//           latitude: delta.updates[0].values[0].value.latitude
+//         };
+//         this.setState({
+//           position: position
+//         })
+//       })
+//     }
+//   }
+//
+//   render() {
+//     let longitude = this.state.position.longitude;
+//     let latitude = this.state.position.latitude;
+//
+//     return (
+//       <div className="position">
+//         <button onClick={() => this.connect()}>Connect</button>
+//         <div>Longitude: {longitude}</div>
+//         <div>Latitude: {latitude}</div>
+//       </div>
+//     );
+//   }
+// }
 
 function App() {
   return (
