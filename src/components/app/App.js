@@ -14,8 +14,8 @@ import instrumentPanelIcon from "../../assets/icons/sextant.svg";
 import statisticsIcon from "../../assets/icons/insert_chart.svg";
 import settingsIcon from "../../assets/icons/settings_applications.svg";
 
-const Logs = lazy(() => import('../../routes/logs-overview/LogsOverview'));
-
+const LogsOverview = lazy(() => import('../../routes/logs-overview/LogsOverview'));
+const LogDetails = lazy(() => import('../../routes/log-details/LogDetails'));
 
 // class SignalKClient extends React.Component {
 //   constructor(props) {
@@ -83,28 +83,41 @@ function App() {
               Hello World
             </header>
             <Switch className="App-content">
-              <Route path="/Logs">
-                <Logs />
+              <Route path={"/logs/details"} component={LogDetails}>
+              </Route>
+              <Route path={"/logs"} component={LogsOverview}>
+              </Route>
+              <Route path={"/map"}>
+                Map!
+              </Route>
+              <Route path={"/panel"}>
+                Panel!
+              </Route>
+              <Route path={"/statistics"}>
+                Statistics!
+              </Route>
+              <Route path={"/settings"}>
+                Settings!
               </Route>
             </Switch>
             <div className="nav-bar">
-              <Link to="/Logs">
+              <Link to="/logs">
                 <img src={logIcon} className="icon" alt="log-icon" />
                 Logs
               </Link>
-              <Link to="/Map">
+              <Link to="/map">
                 <img src={mapIcon} className="icon" alt="map-icon" />
                 Map
               </Link>
-              <Link to="/Panel">
+              <Link to="/panel">
                 <img src={instrumentPanelIcon} className="icon" alt="instrument-panel-icon" />
                 Panel
               </Link>
-              <Link to="/Statistics">
+              <Link to="/statistics">
                 <img src={statisticsIcon} className="icon" alt="statistics-icon" />
                 Statistics
               </Link>
-              <Link to="/Settings">
+              <Link to="/settings">
                 <img src={settingsIcon} className="icon" alt="settings-icon" />
                 Settings
               </Link>
