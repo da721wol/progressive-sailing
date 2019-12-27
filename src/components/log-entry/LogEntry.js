@@ -3,6 +3,7 @@ import './LogEntry.css'
 import moorBoat from '../../assets/icons/moor-boat.svg'
 
 export function LogEntry(props) {
+  console.log(props.logEntry.content.navigation.position)
     return (
       <div className="card" onClick={props.customClickEvent}>
         <div className="container">
@@ -30,13 +31,13 @@ export function LogEntry(props) {
               <text textAnchor={"middle"} x="300px" y="289.313px" style={{
                 fontFamily: 'Muli-Bold',
                 fontSize: '123.678px'
-              }}>{props.logEntry.navigation.position.value.latitude.toFixed(1)}N
+              }}>{props.logEntry.content.navigation.position.value.latitude.toFixed(1)}N
               </text>
               <text textAnchor={"middle"}
                     x="300px" y="409.313px" style={{
                 fontFamily: 'Muli-Bold',
                 fontSize: '123.678px'
-              }}>{props.logEntry.navigation.position.value.longitude.toFixed(1)}E
+              }}>{props.logEntry.content.navigation.position.value.longitude.toFixed(1)}E
               </text>
             </svg>
           </div>
@@ -61,7 +62,7 @@ export function LogEntry(props) {
                       style={{
                         fontFamily: 'Muli-Bold',
                         fontSize: '123.678px'
-                      }}>{props.logEntry.navigation.courseOverGroundTrue.value.toFixed(2)}</text>
+                      }}>{props.logEntry.content.navigation.courseOverGroundTrue.value.toFixed(2)}</text>
               </g>
             </svg>
           </div>
@@ -83,7 +84,7 @@ export function LogEntry(props) {
               <text textAnchor={"middle"} x="300px" y="522.446px" style={{
                 fontFamily: 'Muli-Regular',
                 fontSize: '138px'
-              }}>{props.logEntry.navigation.speedThroughWater.value.toFixed(2)}</text>
+              }}>{props.logEntry.content.navigation.speedThroughWater.value.toFixed(2)}</text>
             </svg>
           </div>
           <div className={"d4"}>
@@ -109,12 +110,12 @@ export function LogEntry(props) {
                       style={{
                         fontFamily: 'Muli-Regular',
                         fontSize: '138px'
-                      }}>{props.logEntry.environment.current.value.drift.toFixed(2)}</text>
+                      }}>{props.logEntry.content.environment.current.value.drift.toFixed(2)}</text>
                 <text textAnchor={"middle"} x="300px" y="222.687px"
                       style={{
                         fontFamily: 'Muli-Regular',
                         fontSize: '138px'
-                      }}>{props.logEntry.environment.current.value.setTrue.toFixed(2)}</text>
+                      }}>{props.logEntry.content.environment.current.value.setTrue.toFixed(2)}</text>
               </g>
             </svg>
           </div>

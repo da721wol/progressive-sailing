@@ -13,6 +13,7 @@ import mapIcon from "../../assets/icons/map.svg";
 import instrumentPanelIcon from "../../assets/icons/sextant.svg";
 import statisticsIcon from "../../assets/icons/insert_chart.svg";
 import settingsIcon from "../../assets/icons/settings_applications.svg";
+import AddLog from "../AddLog";
 
 const LogsOverview = lazy(() => import('../../routes/logs-overview/LogsOverview'));
 const LogDetails = lazy(() => import('../../routes/log-details/LogDetails'));
@@ -81,6 +82,7 @@ function App() {
           <div className="App">
             <header className="App-header">
               Hello World
+              <AddLog />
             </header>
             <Switch className="App-content">
               <Route path={"/logs/details"} component={LogDetails}>
