@@ -1,23 +1,18 @@
-import React, {lazy} from 'react';
-import {Link} from 'react-router-dom';
-import {LogEntry} from '../../components/log-entry/LogEntry';
+import React, { lazy } from 'react';
+import { Link } from 'react-router-dom';
+import { LogEntry } from '../../components/log-entry/LogEntry';
 import './LogsOverview.css'
-import {connect} from 'react-redux';
-import {getLogs} from '../../redux/selectors';
-import volare1 from '../../assets/data/volare1';
-import volare2 from '../../assets/data/volare2';
-import volare3 from '../../assets/data/volare3';
-import AddLog from "../../components/AddLog";
+import { connect } from 'react-redux';
+import { getLogs, getSelectedLog } from '../../redux/selectors';
+import { selectLog } from '../../redux/actions';
 
 const LogDetails = lazy(() => import('../../routes/log-details/LogDetails'));
 
 const mapStateToProps = state => {
-  const {byIds, allIds} = state.logs || {};
-  const logs =
-    allIds && allIds.length
-      ? allIds.map(id => (byIds ? {...byIds[id], id} : null))
-      : null;
-  return {logs};
+  return {
+    logs: getLogs(state),
+    selectedLog: getSelectedLog(state)
+  }
 };
 
 class LogsOverview extends React.Component {
@@ -48,9 +43,8 @@ class LogsOverview extends React.Component {
   }
 
   selectLog(log) {
-    this.setState({
-      selectedLog: log
-    });
+    this.setState({selectedLog: log});
+    this.props.selectLog(log.id, log.content)
   }
 
   render() {
@@ -58,7 +52,7 @@ class LogsOverview extends React.Component {
     const isMobile = width <= 500;
 
     if (isMobile) {
-      return <MobileView logs={this.props.logs} selectLog={this.selectLog.bind(this)}/>;
+      return <MobileView logs={this.props.logs} selectLog={this.selectLog}/>;
     } else {
       return <DesktopView logs={this.props.logs} selectedLog={this.state.selectedLog} selectLog={this.selectLog} />
 
@@ -66,7 +60,7 @@ class LogsOverview extends React.Component {
   }
 }
 
-export default connect(state => ({logs: getLogs(state)}))(LogsOverview);
+export default connect(mapStateToProps, { selectLog })(LogsOverview);
 
 function DesktopView(props) {
   return (
@@ -74,16 +68,12 @@ function DesktopView(props) {
       <div className={"log-list"}>
         {props.logs && props.logs.length
           ? props.logs.map((log, index) => {
-            return <LogEntry key={`log-${log.id}`} logEntry={log} customClickEvent={() => props.selectLog(log)}/>
+            return <LogEntry key={`log-${log.id}`} logEntry={log} customClickEvent={props.selectLog.bind(this, log)}/>
           })
           : 'No Logs yet!'}
       </div>
       {!props.selectedLog && <div>Select Log</div>}
-      {props.selectedLog &&
-      <div className={"details-list"}>
-        <LogDetails log={props.selectedLog}/>
-      </div>
-      }
+      {props.selectedLog && <LogDetails/>}
     </div>
   )
 }
@@ -95,10 +85,7 @@ function MobileView(props) {
         ? props.logs.map((log, index) => {
           return <Link key={`log-${log.id}`}  to={{
             pathname: "/logs/details",
-            state: {
-              log: log
-            }
-          }} onClick={props.selectLog.bind(this, volare1)}>
+          }} onClick={props.selectLog.bind(this, log)}>
             <LogEntry logEntry={log}/>
           </Link>
         })

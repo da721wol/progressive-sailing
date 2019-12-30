@@ -1,8 +1,9 @@
-import { ADD_LOG } from '../actionTypes';
+import { ADD_LOG, SELECT_LOG } from '../actionTypes';
 
 const initialState = {
   allIds: [],
-  byIds: {}
+  byIds: {},
+  selectedLog: null
 };
 
 export default function(state = initialState, action) {
@@ -18,6 +19,13 @@ export default function(state = initialState, action) {
             content
           }
         }
+      }
+    }
+    case SELECT_LOG: {
+      const { id, content } = action.payload;
+      return {
+        ...state,
+        selectedLog: { id, content }
       }
     }
     default:

@@ -1,19 +1,17 @@
-import React from 'react';
+import React from 'react'
+import editIcon from '../../assets/icons/edit.svg'
 
-export default class LogDetail extends React.Component {
+export function LogDetail(props) {
 
-  render() {
     // const isMobile = window.innerWidth <= 500;
-    console.log(this.props)
     return (
       <div className={"card"}>
         <div className={"container"}>
-          {this.props.log.content.navigation.position.value.latitude}N
-          {this.props.log.content.navigation.position.value.longitude}E
+          <div className={"detail-name"}>
+            {props.name}
+          </div>
+          <img className={"edit"} src={editIcon} alt={"icon"} />
         </div>
       </div>
     )
-
-
-  }
 }

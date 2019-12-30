@@ -3,7 +3,6 @@ import './LogEntry.css'
 import moorBoat from '../../assets/icons/moor-boat.svg'
 
 export function LogEntry(props) {
-  console.log(props.logEntry.content.navigation.position)
     return (
       <div className="card" onClick={props.customClickEvent}>
         <div className="container">

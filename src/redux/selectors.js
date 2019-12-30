@@ -8,3 +8,6 @@ export const getLogById = (store, id) =>
 
 export const getLogs = store =>
   getLogList(store).map(id => getLogById(store, id));
+
+export const getSelectedLog = store => store.logs.selectedLog;
+
