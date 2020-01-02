@@ -5,13 +5,6 @@
   overflow-y: scroll;
 }
 
-.details-list {
-  display: grid;
-  grid-template-rows: repeat(auto-fill, 200px);
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-
 @media (min-width: 500px) {
   .logs-view {
     display: grid;
@@ -19,5 +12,4 @@
     height: 100%;
     overflow: hidden;
   }
-
 }
