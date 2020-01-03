@@ -1,14 +1,3 @@
-.container {
-  display: grid;
-  grid-template-areas:
-    "detail-name edit"
-    "val-1 val-2"
-    "val-3 val-4";
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-template-columns: 1fr 1fr;
-  padding: 5px;
-}
-
 .detail-name {
   grid-area: detail-name;
 }

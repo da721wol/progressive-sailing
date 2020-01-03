@@ -9,7 +9,7 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(${props =>props.length}, 1fr);
-   padding: 5px;
+  padding: 10px;
 `;
 
 const getDetailsLength = function(obj) {
@@ -17,9 +17,9 @@ const getDetailsLength = function(obj) {
     if (typeof obj.detail.value !== "object") {
       return 2
     }
-    return Object.keys(obj.detail.value).length + 1
+    return Object.keys(obj.detail.value).length
   } else {
-    return Object.keys(obj.detail).length + 1
+    return Object.keys(obj.detail).length
   }
 };
 
@@ -31,8 +31,8 @@ export function LogDetail(props) {
   return (
     <div className={"card"}>
       <Container detail={props.detail} length={detailsLength}>
-        <div>
-          <Position/>
+        <div style={{justifySelf: "start"}}>
+          <Position />
           <div className={"detail-name"}>
             {props.name}
           </div>
