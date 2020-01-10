@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Position from '../icons/Position'
-import Edit from '../icons/Edit'
+import Icons from '../icons'
 
 
 const Container = styled.div`
@@ -10,6 +9,12 @@ const Container = styled.div`
   grid-template-rows: repeat(${props => props.length}, 1fr);
   padding: 10px;
 `;
+
+const Button = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  
+`
 
 const getRowAmount = function (log) {
   if (log.detail.value) {
@@ -37,11 +42,6 @@ const getValues = function (log) {
         time: {value: log.detail.value.substr(11, 8)}
       };
       break;
-    // case 'speedThroughWater':
-    //   values = {
-    //     speed: {value: log.detail.value}
-    //   };
-    //   break;
     case 'current':
       values = {
         setTrue: {value: log.detail.value.setTrue},
@@ -58,21 +58,21 @@ const getValues = function (log) {
 export function LogDetail(props) {
   const detailsLength = getRowAmount(props);
   const values = getValues(props);
-  console.log(props);
-  console.log(values);
   // const isMobile = window.innerWidth <= 500;
   return (
     <div className={"card"}>
       <Container detail={props.detail} length={detailsLength}>
         <div style={{justifySelf: "start"}}>
-          <Position/>
+          <Icons.Position width={"50px"} height={"50px"} style={{boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)"}}/>
           <div className={"detail-name"}>
-            {props.name}
+            <b>{props.name}</b>
           </div>
         </div>
         <div style={{justifySelf: "end"}}>
-          <Edit style={{justifySelf: "end"}}/>
-          Edit
+          <Button>
+            <Icons.Edit width={"35px"} height={"35px"} style={{justifySelf: "end"}}/>
+            <b>Edit</b>
+          </Button>
         </div>
         {!values.value
           ? Object.keys(values).map(key => {

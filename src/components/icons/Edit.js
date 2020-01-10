@@ -3,7 +3,7 @@ import React from "react";
 function Edit(props) {
   return (
     <svg
-      width={props.width || "63px"} height={props.height || "63px"}
+      width={props.width || "35px"} height={props.height || "35px"}
       xmlns="http://www.w3.org/2000/svg"
       fillRule="evenodd"
       strokeLinecap="round"

@@ -1,8 +1,9 @@
 import React from "react";
 
-function Position() {
+function Position(props) {
   return (
     <svg
+      width={props.width || "63px"} height={props.height || "63px"}
       xmlns="http://www.w3.org/2000/svg"
       fillRule="evenodd"
       strokeLinejoin="round"
