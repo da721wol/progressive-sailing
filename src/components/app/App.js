@@ -6,13 +6,7 @@ import {
   Link
 } from 'react-router-dom';
 import './App.css';
-
-import logIcon from "../../assets/icons/menu_book.svg";
-import mapIcon from "../../assets/icons/map.svg";
-
-import instrumentPanelIcon from "../../assets/icons/sextant.svg";
-import statisticsIcon from "../../assets/icons/insert_chart.svg";
-import settingsIcon from "../../assets/icons/settings_applications.svg";
+import Icons from '../icons'
 import AddLog from "../AddLog";
 
 const LogsOverview = lazy(() => import('../../routes/logs-overview/LogsOverview'));
@@ -95,32 +89,25 @@ function App() {
               <Route path={"/panel"}>
                 Panel!
               </Route>
-              <Route path={"/statistics"}>
-                Statistics!
-              </Route>
               <Route path={"/settings"}>
                 Settings!
               </Route>
             </Switch>
             <div className="nav-bar">
               <Link to="/logs">
-                <img src={logIcon} className="icon" alt="log-icon" />
+                <Icons.Log width={"50px"} height={"50px"}/>
                 Logs
               </Link>
               <Link to="/map">
-                <img src={mapIcon} className="icon" alt="map-icon" />
+                <Icons.Map width={"50px"} height={"50px"}/>
                 Map
               </Link>
               <Link to="/panel">
-                <img src={instrumentPanelIcon} className="icon" alt="instrument-panel-icon" />
+                <Icons.Sextant width={"50px"} height={"50px"}/>
                 Panel
               </Link>
-              <Link to="/statistics">
-                <img src={statisticsIcon} className="icon" alt="statistics-icon" />
-                Statistics
-              </Link>
               <Link to="/settings">
-                <img src={settingsIcon} className="icon" alt="settings-icon" />
+                <Icons.Settings width={"50px"} height={"50px"}/>
                 Settings
               </Link>
             </div>

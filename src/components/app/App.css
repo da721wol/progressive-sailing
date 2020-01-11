@@ -29,14 +29,15 @@
 .nav-bar {
   z-index: 1;
   grid-area: navbar;
-  background-color: #a8a8a8;
+  background-color: #ebebeb;
   height: 100%;
   display: grid;
-  grid-template-columns: repeat(5, 60px);
+  grid-template-columns: repeat(4, 60px);
   justify-items: center;
   justify-content: center;
   align-items: center;
-  grid-column-gap: 10px;
+  grid-column-gap: 20px;
+  box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2);
 }
 
 /* Change the color of links on hover */
@@ -79,7 +80,7 @@
   }
   .nav-bar {
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(5, 80px);
+    grid-template-rows: repeat(4, 80px);
     grid-row-gap: 10px;
     align-content: baseline;
   }

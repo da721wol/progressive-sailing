@@ -2,11 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 import Icons from '../icons'
 
-
 const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(${props => props.length}, 1fr);
+  grid-gap: 10px;
   padding: 10px;
 `;
 
@@ -14,7 +14,7 @@ const Button = styled.div`
   display: grid;
   grid-template-rows: 1fr 1fr;
   
-`
+`;
 
 const getRowAmount = function (log) {
   if (log.detail.value) {
@@ -24,6 +24,33 @@ const getRowAmount = function (log) {
     return Object.keys(log.detail.value).length
   } else {
     return Object.keys(log.detail).length / 2 + 1
+  }
+};
+
+const getIcon = function (name) {
+  switch (name) {
+    case 'position':
+      return <Icons.Position width={"50px"} height={"50px"}/>;
+    case 'longitude':
+      return <Icons.Longitude width={"35px"} height={"35px"}/>;
+    case 'latitude':
+      return <Icons.Latitude width={"35px"} height={"35px"}/>;
+    case 'datetime':
+      return <Icons.Datetime width={"35px"} height={"35px"}/>;
+    case 'gnss':
+      return <Icons.Gnss width={"35px"} height={"35px"}/>;
+    case 'magneticVariation':
+      return <Icons.MagneticVariation width={"35px"} height={"35px"}/>;
+    case 'satellites':
+      return <Icons.Satellites width={"35px"} height={"35px"}/>;
+    case 'Speed':
+      return <Icons.Speed width={"35px"} height={"35px"}/>;
+    case 'speedThroughWater':
+      return <Icons.SpeedThroughWater width={"35px"} height={"35px"}/>;
+    case 'trip':
+      return <Icons.Trip width={"35px"} height={"35px"}/>;
+    default:
+      return null
   }
 };
 
@@ -48,6 +75,16 @@ const getValues = function (log) {
         drift: {value: log.detail.value.drift}
       };
       break;
+    case 'batteries':
+      // eslint-disable-next-line
+      Object.keys(log.detail).map(function (key) {
+        values[key +' (time remaining)'] = {value: log.detail[key].capacity.timeRemaining.value};
+        values[key + ' (voltage)'] = {value: log.detail[key].voltage.value};
+        values[key + ' (current)'] = {value: log.detail[key].current.value};
+        values[key + ' (temperature)'] = {value: log.detail[key].temperature.value}
+
+      });
+      break;
     default:
       values = log.detail;
       break;
@@ -55,17 +92,22 @@ const getValues = function (log) {
   return values
 };
 
+const capitalize = function (word) {
+  return word[0].toUpperCase() + word.slice(1)
+};
+
 export function LogDetail(props) {
   const detailsLength = getRowAmount(props);
   const values = getValues(props);
+  console.log(props);
   // const isMobile = window.innerWidth <= 500;
   return (
     <div className={"card"}>
       <Container detail={props.detail} length={detailsLength}>
         <div style={{justifySelf: "start"}}>
-          <Icons.Position width={"50px"} height={"50px"} style={{boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)"}}/>
+          {getIcon(props.name)}
           <div className={"detail-name"}>
-            <b>{props.name}</b>
+            <b>{capitalize(props.name)}</b>
           </div>
         </div>
         <div style={{justifySelf: "end"}}>
@@ -77,12 +119,13 @@ export function LogDetail(props) {
         {!values.value
           ? Object.keys(values).map(key => {
             return (
-              <div key={key}>
-                {key} : {values[key].value}
+              <div style={{justifySelf: "start"}} key={key}>
+                {getIcon(key)}
+                {capitalize(key)} : {values[key].value}
               </div>
             )
           })
-          : <div>Value: {values.value} </div>
+          : <div style={{justifySelf: "start"}}>Value: {values.value} </div>
 
         }
       </Container>

@@ -1,8 +1,9 @@
 import React from "react";
 
-function Speed() {
+function Speed(props) {
   return (
     <svg
+      width={props.width || "35px"} height={props.height || "35px"}
       xmlns="http://www.w3.org/2000/svg"
       fillRule="evenodd"
       strokeLinejoin="round"

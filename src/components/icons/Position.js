@@ -6,16 +6,47 @@ function Position(props) {
       width={props.width || "63px"} height={props.height || "63px"}
       xmlns="http://www.w3.org/2000/svg"
       fillRule="evenodd"
+      strokeLinecap="round"
       strokeLinejoin="round"
-      strokeMiterlimit="2"
+      strokeMiterlimit="1.5"
       clipRule="evenodd"
-      viewBox="0 0 800 600"
+      viewBox="0 0 600 600"
     >
-      <path fill="none" d="M0 0H800V600H0z"/>
-      <path d="M400 95.455c112.892 0 204.545 91.653 204.545 204.545 0 112.892-91.653 204.545-204.545 204.545-112.892 0-204.545-91.653-204.545-204.545 0-112.892 91.653-204.545 204.545-204.545zm0 30.681c95.958 0 173.864 77.906 173.864 173.864S495.958 473.864 400 473.864 226.136 395.958 226.136 300 304.042 126.136 400 126.136z"/>
-      <path d="M150 277.273H218.18200000000002V322.728H150z"/>
-      <path d="M581.818 277.273H650V322.728H581.818z"/>
-      <path d="M377.273 481.818V550h45.454v-68.182h-45.454zM377.273 50v68.182h45.454V50h-45.454z"/>
+      <circle
+  cx="300"
+  cy="300"
+  r="234.669"
+  fill="#FFFFFF"
+  stroke="#000"
+  strokeWidth="30"
+  />
+      <path d="M11 260H60V340H11z"/>
+      <path d="M540 260H589V340H540z"/>
+      <path d="M260 11v49h80V11h-80zM260 540v49h80v-49h-80z"/>
+      <text
+        textAnchor={"middle"}
+        x="300"
+        y="278.296"
+        fontFamily="'ArialMT', 'Arial', sans-serif"
+        fontSize="139.605"
+      >
+        {props.latitude ?
+          props.latitude.toFixed(1)
+          : null
+        }
+      </text>
+      <text
+        textAnchor={"middle"}
+        x="300"
+        y="418.296"
+        fontFamily="'ArialMT', 'Arial', sans-serif"
+        fontSize="139.605"
+      >
+        {props.longitude ?
+          props.longitude.toFixed(1)
+          : null
+        }
+      </text>
     </svg>
   );
 }

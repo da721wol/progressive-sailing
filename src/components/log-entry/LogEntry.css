@@ -5,7 +5,7 @@
     "time title title title title title"
     "type-icon d1 d2 d3 d4 d5";
   grid-template-rows: 1fr 4fr;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   padding: 5px;
 }
 

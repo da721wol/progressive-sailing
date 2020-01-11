@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './NavBar.css';
-import logIcon from '../../assets/icons/menu_book.svg';
+import logIcon from '../../assets/icons/log.svg';
 import mapIcon from '../../assets/icons/map.svg';
 import instrumentPanelIcon from '../../assets/icons/sextant.svg';
 import statisticsIcon from '../../assets/icons/insert_chart.svg';
