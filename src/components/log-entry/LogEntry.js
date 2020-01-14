@@ -1,6 +1,5 @@
 import React from 'react';
 import './LogEntry.css'
-import moorBoat from '../../assets/icons/moor-boat.svg'
 import Icons from '../icons'
 
 export function LogEntry(props) {
@@ -8,7 +7,7 @@ export function LogEntry(props) {
       <div className="card" onClick={props.customClickEvent}>
         <div className="container">
           <div className={"time"}>
-            11:11
+            {props.logEntry.content.navigation.datetime.value.substr(11, 8)}
           </div>
           <div className={"title"}>
             Engine on

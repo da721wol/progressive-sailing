@@ -20,8 +20,14 @@ import SpeedOverGround from "./SpeedOverGround";
 import Current from "./Current";
 import Moored from "./Moored";
 import Rotor from "./Rotor";
+import Date from "./Date";
+import AntennaAltitude from "./AntennaAltitude";
+import Compass from "./Compass";
+import Water from "./Water";
+import Hamburger from "./Hamburger";
 
 export default {
+  AntennaAltitude,
   Edit,
   Position,
   Longitude,
@@ -43,5 +49,9 @@ export default {
   SpeedOverGround,
   Current,
   Moored,
-  Rotor
+  Rotor,
+  Date,
+  Compass,
+  Water,
+  Hamburger
 }

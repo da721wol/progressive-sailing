@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, {Suspense, lazy} from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,75 +8,92 @@ import {
 import './App.css';
 import Icons from '../icons'
 import AddLog from "../AddLog";
+import styled from 'styled-components'
 
 const LogsOverview = lazy(() => import('../../routes/logs-overview/LogsOverview'));
 const LogDetails = lazy(() => import('../../routes/log-details/LogDetails'));
 
-// class SignalKClient extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       client: new Client({
-//         hostname: 'localhost',
-//         port: 3000,
-//         useTLS: false,
-//         reconnect: true,
-//         autoConnect: false,
-//       }),
-//       subscription: {
-//         context: 'vessels.self',
-//         subscribe: [{path: 'navigation.position'}]
-//       },
-//       position: {
-//         longitude: 0,
-//         latitude: 0
-//       }
-//     };
-//   }
-//
-//   connect() {
-//     if (this.state.client) {
-//       this.state.client.connect().then(() => this.state.client.subscribe(this.state.subscription));
-//
-//       this.state.client.on('delta', delta => {
-//         const position = {
-//           longitude: delta.updates[0].values[0].value.longitude,
-//           latitude: delta.updates[0].values[0].value.latitude
-//         };
-//         this.setState({
-//           position: position
-//         })
-//       })
-//     }
-//   }
-//
-//   render() {
-//     let longitude = this.state.position.longitude;
-//     let latitude = this.state.position.latitude;
-//
-//     return (
-//       <div className="position">
-//         <button onClick={() => this.connect()}>Connect</button>
-//         <div>Longitude: {longitude}</div>
-//         <div>Latitude: {latitude}</div>
-//       </div>
-//     );
-//   }
-// }
+const AppGrid = styled.div`
+  display: grid;
+  height: 100vh;
+  grid-template-areas:
+    "header"
+    "content";
+  grid-template-rows: 80px 1fr;
+  text-align: center;
+  transition: margin-left .5s;
+  margin-left: ${props =>props.navToggled ? "150px" : "0"};
+`;
 
-function App() {
-  return (
+const SideNav = styled.div`
+  height: 100%; /* 100% Full-height */
+  width: ${props => props.navToggled ? "150px" : "0"}; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #f5f5f5; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  box-shadow: inset -5px 0 5px -2px #555;
+  
+  .link {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    transition: 0.3s;
+    justify-items: start;
+    
+    &:hover {
+      color: #000000;
+    }
+  }
+  
+  @media screen and (max-height: 450px) {
+    padding-top: 15px;
+    Link {font-size: 18px;}
+  }
+`;
 
-      // <div className="App-content">
-      //   <img src={logo} className="App-logo" alt="logo" />
-      //   <SignalKClient/>
-      // </div>
+const Button = styled.button`
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  left: 13px;
+  font-size: 36px;
+  border: none;
+  background: none;
+`;
+
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      navToggled: false
+    };
+    this.toggleNav = this.toggleNav.bind(this);
+  }
+
+
+  toggleNav() {
+    this.setState({navToggled: !this.state.navToggled});
+  }
+
+  render() {
+    return (
       <Router>
         <Suspense fallback={<div>Loading...</div>}>
-          <div className="App">
+          <AppGrid navToggled={this.state.navToggled}>
             <header className="App-header">
-              Hello World
-              <AddLog />
+              <Button onClick={this.toggleNav}>
+                <Icons.Hamburger className={"closebtn"} />
+              </Button>
+              Progressive Sailing
+              <AddLog/>
             </header>
             <Switch className="App-content">
               <Route path={"/logs/details"} component={LogDetails}>
@@ -93,35 +110,30 @@ function App() {
                 Settings!
               </Route>
             </Switch>
-            <div className="nav-bar">
-              <Link to="/logs">
-                <Icons.Log width={"50px"} height={"50px"}/>
+            <SideNav navToggled={this.state.navToggled}>
+              <Button onClick={this.toggleNav}>
+                <Icons.Hamburger className={"closebtn"} />
+              </Button>
+              <Link className={"link"} to="/logs">
+                <Icons.Log width={"35px"} height={"35px"}/>
                 Logs
               </Link>
-              <Link to="/map">
-                <Icons.Map width={"50px"} height={"50px"}/>
+              <Link className={"link"} to="/map">
+                <Icons.Map width={"35px"} height={"35px"}/>
                 Map
               </Link>
-              <Link to="/panel">
-                <Icons.Sextant width={"50px"} height={"50px"}/>
+              <Link className={"link"} to="/panel">
+                <Icons.Sextant width={"35px"} height={"35px"}/>
                 Panel
               </Link>
-              <Link to="/settings">
-                <Icons.Settings width={"50px"} height={"50px"}/>
+              <Link className={"link"} to="/settings">
+                <Icons.Settings width={"35px"} height={"35px"}/>
                 Settings
               </Link>
-            </div>
-          </div>
+            </SideNav>
+          </AppGrid>
         </Suspense>
       </Router>
-  );
+    );
+  }
 }
-
-// ReactDOM.render(
-//   <BrowserRouter>
-//     <App />
-//   </BrowserRouter>,
-//   document.getElementById('root')
-// );
-
-export default App;

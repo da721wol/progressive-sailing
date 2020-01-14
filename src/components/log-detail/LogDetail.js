@@ -36,9 +36,9 @@ const getIcon = function (name) {
     case 'latitude':
       return <Icons.Latitude width={"35px"} height={"35px"}/>;
     case 'datetime':
-      return <Icons.Datetime width={"35px"} height={"35px"}/>;
+      return <Icons.Datetime width={"50px"} height={"50px"}/>;
     case 'gnss':
-      return <Icons.Gnss width={"35px"} height={"35px"}/>;
+      return <Icons.Gnss width={"50px"} height={"50px"}/>;
     case 'magneticVariation':
       return <Icons.MagneticVariation width={"35px"} height={"35px"}/>;
     case 'satellites':
@@ -49,6 +49,28 @@ const getIcon = function (name) {
       return <Icons.SpeedThroughWater width={"35px"} height={"35px"}/>;
     case 'trip':
       return <Icons.Trip width={"35px"} height={"35px"}/>;
+    case 'date':
+      return <Icons.Date width={"35px"} height={"35px"}/>;
+    case 'time':
+      return <Icons.Datetime width={"35px"} height={"35px"}/>;
+    case 'antennaAltitude':
+      return <Icons.AntennaAltitude width={"35px"} height={"35px"}/>;
+    case 'horizontalDilution':
+      return <Icons.HorizontalDilution width={"35px"} height={"35px"}/>;
+    case 'type':
+      return <Icons.Gnss width={"35px"} height={"35px"}/>;
+    case 'log':
+      return <Icons.Log width={"35px"} height={"35px"}/>;
+    case 'speedOverGround':
+      return <Icons.SpeedOverGround width={"35px"} height={"35px"}/>;
+    case 'courseOverGroundTrue':
+      return <Icons.CourseOverGround width={"35px"} height={"35"}/>;
+    case 'headingTrue':
+      return <Icons.Compass width={"35px"} height={"35px"}/>;
+    case 'water':
+      return <Icons.Water width={"35px"} height={"35px"}/>;
+    case 'current':
+      return <Icons.Current width={"35px"} height={"35px"}/>;
     default:
       return null
   }
