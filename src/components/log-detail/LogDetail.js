@@ -148,7 +148,6 @@ export function LogDetail(props) {
             )
           })
           : <div style={{justifySelf: "start"}}>Value: {values.value} </div>
-
         }
       </Container>
     </div>

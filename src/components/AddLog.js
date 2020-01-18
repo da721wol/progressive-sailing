@@ -1,6 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {addLog} from '../redux/actions';
+import styled from "styled-components";
+
+const Button = styled.button`
+  cursor: pointer;
+  font-size: 36px;
+  border: none;
+  background: none;
+`;
 
 class AddLog extends React.Component {
   constructor(props) {
@@ -34,15 +42,12 @@ class AddLog extends React.Component {
   render() {
     return (
       <div>
-        <button className={"add-log"} onClick={this.handleAddLog}>
+        <Button onClick={this.handleAddLog}>
           +
-        </button>
+        </Button>
       </div>
     )
   }
 }
 
-export default connect(
-  null,
-  { addLog }
-)(AddLog)
+export default connect(null, { addLog })(AddLog)

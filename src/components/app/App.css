@@ -14,14 +14,6 @@
   height: 40vmin;
 }
 
-.App-header {
-  z-index: 1;
-  grid-area: header;
-  background-color: #63c8ff;
-  font-size: calc(10px + 2vmin);
-  color: #000000;
-}
-
 .App-content {
   grid-area: content;
 }

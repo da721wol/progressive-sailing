@@ -1,4 +1,4 @@
-import { ADD_LOG, SELECT_LOG } from './actionTypes';
+import { ADD_LOG, SELECT_LOG, SELECT_PATH } from './actionTypes';
 
 let nextLogId = 0;
 export const addLog = content =>({
@@ -15,4 +15,9 @@ export const selectLog = (id, content) => ({
     id,
     content
   }
+});
+
+export const selectPath = content => ({
+  type: SELECT_PATH,
+  payload: content
 });

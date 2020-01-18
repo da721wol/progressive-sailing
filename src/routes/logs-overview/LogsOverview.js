@@ -4,7 +4,7 @@ import { LogEntry } from '../../components/log-entry/LogEntry';
 import './LogsOverview.css'
 import { connect } from 'react-redux';
 import { getLogs, getSelectedLog } from '../../redux/selectors';
-import { selectLog } from '../../redux/actions';
+import { selectLog, selectPath } from '../../redux/actions';
 
 const LogDetails = lazy(() => import('../../routes/log-details/LogDetails'));
 
@@ -24,6 +24,12 @@ class LogsOverview extends React.Component {
       logs: null
     };
     this.selectLog = this.selectLog.bind(this);
+    this.selectPath = this.selectPath.bind(this);
+  }
+
+  selectPath(path) {
+    this.setState({selectedPath: path});
+    this.props.selectPath(path);
   }
 
   componentWillUnmount() {
@@ -52,7 +58,7 @@ class LogsOverview extends React.Component {
     const isMobile = width <= 500;
 
     if (isMobile) {
-      return <MobileView logs={this.props.logs} selectLog={this.selectLog}/>;
+      return <MobileView logs={this.props.logs} selectLog={this.selectLog} selectPath={this.selectPath}/>;
     } else {
       return <DesktopView logs={this.props.logs} selectedLog={this.state.selectedLog} selectLog={this.selectLog} />
 
@@ -60,7 +66,7 @@ class LogsOverview extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, { selectLog })(LogsOverview);
+export default connect(mapStateToProps, { selectLog, selectPath })(LogsOverview);
 
 function DesktopView(props) {
   return (
@@ -85,7 +91,7 @@ function MobileView(props) {
         ? props.logs.map((log, index) => {
           return <Link key={`log-${log.id}`}  to={{
             pathname: "/logs/details",
-          }} onClick={props.selectLog.bind(this, log)}>
+          }} onClick={() => {props.selectLog(log); props.selectPath("/logs/details")}}>
             <LogEntry logEntry={log}/>
           </Link>
         })

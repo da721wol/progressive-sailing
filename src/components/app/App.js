@@ -9,9 +9,18 @@ import './App.css';
 import Icons from '../icons'
 import AddLog from "../AddLog";
 import styled from 'styled-components'
+import {getSelectedPath} from "../../redux/selectors";
+import {selectPath} from "../../redux/actions";
+import {connect} from "react-redux";
 
 const LogsOverview = lazy(() => import('../../routes/logs-overview/LogsOverview'));
 const LogDetails = lazy(() => import('../../routes/log-details/LogDetails'));
+
+const mapStateToProps = state => {
+  return {
+    selectedPath: getSelectedPath(state)
+  }
+};
 
 const AppGrid = styled.div`
   display: grid;
@@ -22,33 +31,61 @@ const AppGrid = styled.div`
   grid-template-rows: 80px 1fr;
   text-align: center;
   transition: margin-left .5s;
-  margin-left: ${props =>props.navToggled ? "150px" : "0"};
+`;
+
+const Header = styled.div`
+  display: grid;
+  z-index: 2;
+  grid-area: header;
+  grid-template-columns: 6em 1fr 3em;
+  background-color: #e1f1ff;
+  font-size: calc(10px + 2vmin);
+  color: #000000;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  align-content: center;
+  
+  .c1 {
+    justify-self: start;
+    grid-column: 1;
+  }
+  .c2 {
+    grid-column: 2;
+  }
+  .c3 {
+    grid-column: 3;
+  }
 `;
 
 const SideNav = styled.div`
-  height: 100%; /* 100% Full-height */
-  width: ${props => props.navToggled ? "150px" : "0"}; /* 0 width - change this with JavaScript */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Stay on top */
-  top: 0; /* Stay at the top */
+  height: 100%;
+  width: ${props => props.navToggled ? "150px" : "0"}; 
+  position: fixed; 
+  z-index: 1; 
+  top: 80px; 
   left: 0;
-  background-color: #f5f5f5; /* Black*/
-  overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 60px; /* Place content 60px from the top */
-  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
-  box-shadow: inset -5px 0 5px -2px #555;
+  background-color: #e1f1ff; 
+  overflow-x: hidden; 
+  transition: 0.5s; 
+  box-shadow: 4px 0 5px -2px rgba(0,0,0,0.2);
   
   .link {
-    padding: 6px 8px 6px 16px;
+    width:100%;
+    padding:8px 16px;
+    text-align:left;
+    border:none;
+    white-space:normal;
+    float:none;
+    outline:0;
     text-decoration: none;
     font-size: 20px;
     color: #818181;
     display: grid;
     grid-template-columns: 50px 1fr;
-    transition: 0.3s;
+    transition: 0.5s;
     justify-items: start;
     
     &:hover {
+      background-color: #ffffff;
       color: #000000;
     }
   }
@@ -61,42 +98,62 @@ const SideNav = styled.div`
 
 const Button = styled.button`
   cursor: pointer;
-  position: absolute;
-  top: 10px;
-  left: 13px;
   font-size: 36px;
   border: none;
   background: none;
+  align-content: center;
 `;
 
-export default class App extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      navToggled: false
+      navToggled: false,
+      selectedPath: null
     };
     this.toggleNav = this.toggleNav.bind(this);
+    this.selectPath = this.selectPath.bind(this);
   }
 
+  selectPath(path) {
+    this.setState({selectedPath: path});
+    this.props.selectPath(path);
+  }
 
   toggleNav() {
     this.setState({navToggled: !this.state.navToggled});
   }
+
+
 
   render() {
     return (
       <Router>
         <Suspense fallback={<div>Loading...</div>}>
           <AppGrid navToggled={this.state.navToggled}>
-            <header className="App-header">
-              <Button onClick={this.toggleNav}>
-                <Icons.Hamburger className={"closebtn"} />
-              </Button>
-              Progressive Sailing
-              <AddLog/>
-            </header>
+            <Header>
+              {this.props.selectedPath === '/logs/details'
+                ? <div className={"c1"}>
+                  <Button  onClick={this.toggleNav}>
+                    <Icons.Hamburger/>
+                  </Button>
+                  <Button>
+                    <Link onClick={() => this.selectPath('/logs')} to={"/logs"}>
+                      <Icons.Arrow/>
+                    </Link>
+                  </Button>
+                </div>
+                : <Button className={"c1"} onClick={this.toggleNav}>
+                  <Icons.Hamburger/>
+                </Button>
+
+              }
+
+              <b className={"c2"}>Progressive Sailing</b>
+              <AddLog className={"c3"}/>
+            </Header>
             <Switch className="App-content">
-              <Route path={"/logs/details"} component={LogDetails}>
+              <Route  path={"/logs/details"} component={LogDetails}>
               </Route>
               <Route path={"/logs"} component={LogsOverview}>
               </Route>
@@ -111,22 +168,34 @@ export default class App extends React.Component {
               </Route>
             </Switch>
             <SideNav navToggled={this.state.navToggled}>
-              <Button onClick={this.toggleNav}>
-                <Icons.Hamburger className={"closebtn"} />
-              </Button>
-              <Link className={"link"} to="/logs">
+              <Link
+                className={"link"}
+                onClick={() => this.selectPath('/logs')}
+                to="/logs"
+              >
                 <Icons.Log width={"35px"} height={"35px"}/>
                 Logs
               </Link>
-              <Link className={"link"} to="/map">
+              <Link
+                className={"link"}
+                onClick={() => this.selectPath('/map')}
+                to="/map"
+              >
                 <Icons.Map width={"35px"} height={"35px"}/>
                 Map
               </Link>
-              <Link className={"link"} to="/panel">
+              <Link
+                className={"link"}
+                onClick={() => this.selectPath('/panel')}
+                to="/panel"
+              >
                 <Icons.Sextant width={"35px"} height={"35px"}/>
                 Panel
               </Link>
-              <Link className={"link"} to="/settings">
+              <Link
+                className={"link"}
+                onClick={() => this.selectPath('/settings')}
+                to="/settings">
                 <Icons.Settings width={"35px"} height={"35px"}/>
                 Settings
               </Link>
@@ -137,3 +206,5 @@ export default class App extends React.Component {
     );
   }
 }
+
+export default connect(mapStateToProps, {selectPath})(App);

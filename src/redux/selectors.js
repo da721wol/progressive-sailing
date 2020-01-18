@@ -11,3 +11,5 @@ export const getLogs = store =>
 
 export const getSelectedLog = store => store.logs.selectedLog;
 
+export const getSelectedPath = store => store.path.selectedPath;
+
