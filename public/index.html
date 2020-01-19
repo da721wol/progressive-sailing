@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#E1F1FF" />
+    <meta name="theme-color" content="#E1F1ff" />
     <meta
       name="description"
       content="A PWA for sailors. Access boat data over a signalk server, create log entries and more."
@@ -42,15 +42,5 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('../src/serviceWorker.js')
-            .then((reg) => {
-              console.log('Service worker registered.', reg);
-            });
-        });
-      }
-    </script>
   </body>
 </html>
