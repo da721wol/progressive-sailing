@@ -20,10 +20,15 @@ class AddLog extends React.Component {
     }
   }
 
+  // local: http://localhost:3000/signalk/v1/api/vessels/self
   handleAddLog = () => {
-    fetch("http://localhost:3000/signalk/v1/api/vessels/self")
+    fetch("http://demo.signalk.org/signalk/v1/api/vessels/self")
       .then(res => res.json())
       .then((result) => {
+          if (!result.datetime) {
+            const date = new Date();
+            result.navigation.datetime = {value: date.toISOString()};
+          }
           this.setState({log: result});
           this.props.addLog(this.state.log);
           this.setState({log: ''})
@@ -50,4 +55,4 @@ class AddLog extends React.Component {
   }
 }
 
-export default connect(null, { addLog })(AddLog)
+export default connect(null, {addLog})(AddLog)
