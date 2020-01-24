@@ -1,20 +1,20 @@
 {
   "files": {
     "static/css/0.d32ddac6.chunk.css": "/progressive-sailing-react/static/css/0.d32ddac6.chunk.css",
-    "static/js/0.61839f52.chunk.js": "/progressive-sailing-react/static/js/0.61839f52.chunk.js",
-    "static/js/0.61839f52.chunk.js.map": "/progressive-sailing-react/static/js/0.61839f52.chunk.js.map",
+    "static/js/0.7d8b8777.chunk.js": "/progressive-sailing-react/static/js/0.7d8b8777.chunk.js",
+    "static/js/0.7d8b8777.chunk.js.map": "/progressive-sailing-react/static/js/0.7d8b8777.chunk.js.map",
     "main.css": "/progressive-sailing-react/static/css/main.9b62bdc3.chunk.css",
-    "main.js": "/progressive-sailing-react/static/js/main.c909e546.chunk.js",
-    "main.js.map": "/progressive-sailing-react/static/js/main.c909e546.chunk.js.map",
-    "runtime-main.js": "/progressive-sailing-react/static/js/runtime-main.730f3b7e.js",
-    "runtime-main.js.map": "/progressive-sailing-react/static/js/runtime-main.730f3b7e.js.map",
+    "main.js": "/progressive-sailing-react/static/js/main.9b2d5e5f.chunk.js",
+    "main.js.map": "/progressive-sailing-react/static/js/main.9b2d5e5f.chunk.js.map",
+    "runtime-main.js": "/progressive-sailing-react/static/js/runtime-main.07cd5db5.js",
+    "runtime-main.js.map": "/progressive-sailing-react/static/js/runtime-main.07cd5db5.js.map",
     "static/js/3.71868b92.chunk.js": "/progressive-sailing-react/static/js/3.71868b92.chunk.js",
     "static/js/3.71868b92.chunk.js.map": "/progressive-sailing-react/static/js/3.71868b92.chunk.js.map",
     "static/css/4.f8e6e8e4.chunk.css": "/progressive-sailing-react/static/css/4.f8e6e8e4.chunk.css",
-    "static/js/4.af28b9e6.chunk.js": "/progressive-sailing-react/static/js/4.af28b9e6.chunk.js",
-    "static/js/4.af28b9e6.chunk.js.map": "/progressive-sailing-react/static/js/4.af28b9e6.chunk.js.map",
+    "static/js/4.598e8eef.chunk.js": "/progressive-sailing-react/static/js/4.598e8eef.chunk.js",
+    "static/js/4.598e8eef.chunk.js.map": "/progressive-sailing-react/static/js/4.598e8eef.chunk.js.map",
     "index.html": "/progressive-sailing-react/index.html",
-    "precache-manifest.6ee0eef11783c20e04e2202f1169e23c.js": "/progressive-sailing-react/precache-manifest.6ee0eef11783c20e04e2202f1169e23c.js",
+    "precache-manifest.d7346e92b4be72e452f0e5857800a956.js": "/progressive-sailing-react/precache-manifest.d7346e92b4be72e452f0e5857800a956.js",
     "service-worker.js": "/progressive-sailing-react/service-worker.js",
     "static/css/0.d32ddac6.chunk.css.map": "/progressive-sailing-react/static/css/0.d32ddac6.chunk.css.map",
     "static/css/4.f8e6e8e4.chunk.css.map": "/progressive-sailing-react/static/css/4.f8e6e8e4.chunk.css.map",
@@ -22,9 +22,9 @@
     "static/js/3.71868b92.chunk.js.LICENSE": "/progressive-sailing-react/static/js/3.71868b92.chunk.js.LICENSE"
   },
   "entrypoints": [
-    "static/js/runtime-main.730f3b7e.js",
+    "static/js/runtime-main.07cd5db5.js",
     "static/js/3.71868b92.chunk.js",
     "static/css/main.9b62bdc3.chunk.css",
-    "static/js/main.c909e546.chunk.js"
+    "static/js/main.9b2d5e5f.chunk.js"
   ]
 }
