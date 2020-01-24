@@ -107,6 +107,9 @@ const getValues = function (log) {
 
       });
       break;
+    case 'server':
+      values = {value: log.detail.newVersion.value.message};
+      break;
     default:
       values = log.detail;
       break;
@@ -121,7 +124,6 @@ const capitalize = function (word) {
 export function LogDetail(props) {
   const detailsLength = getRowAmount(props);
   const values = getValues(props);
-  console.log(props);
   // const isMobile = window.innerWidth <= 500;
   return (
     <div className={"card"}>
@@ -143,7 +145,7 @@ export function LogDetail(props) {
             return (
               <div style={{justifySelf: "start"}} key={key}>
                 {getIcon(key)}
-                {capitalize(key)} : {values[key].value}
+                {capitalize(key)} : {typeof values[key].value !== 'object' ? values[key].value : 'Value missing'}
               </div>
             )
           })

@@ -25,6 +25,10 @@ const DesktopColumns = styled.div`
   overflow-x: scroll;
 `;
 
+const capitalize = function (word) {
+  return word[0].toUpperCase() + word.slice(1)
+};
+
 class LogDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -36,36 +40,21 @@ class LogDetails extends React.Component {
   render() {
     return (
       <DesktopColumns>
-        <div>
-          <h4>Navigation</h4>
-          <DetailsList>
-            {this.props.selectedLog.content.navigation
-              ? Object.keys(this.props.selectedLog.content.navigation).map(key => {
-                return (<LogDetail key={key} name={key} detail={this.props.selectedLog.content.navigation[key]}/>)
-              })
-              : 'Navigation Details not found!'}
-          </DetailsList>
-        </div>
-        <div>
-          <h4>Environment</h4>
-          <DetailsList>
-            {this.props.selectedLog.content.environment
-              ? Object.keys(this.props.selectedLog.content.environment).map(key => {
-                return (<LogDetail key={key} name={key} detail={this.props.selectedLog.content.environment[key]}/>)
-              })
-              : 'Environment Details not found!'}
-          </DetailsList>
-        </div>
-        <div>
-          <h4>Electrical</h4>
-          <DetailsList>
-            {this.props.selectedLog.content.electrical
-              ? Object.keys(this.props.selectedLog.content.electrical).map(key => {
-                return (<LogDetail key={key} name={key} detail={this.props.selectedLog.content.electrical[key]}/>)
-              })
-              : 'Environment Details not found!'}
-          </DetailsList>
-        </div>
+        {Object.keys(this.props.selectedLog.content).map(category => {
+          return (
+            <div key={category}>
+              <h4>{capitalize(category)}</h4>
+              <DetailsList>
+                {typeof this.props.selectedLog.content[category] === 'object' && this.props.selectedLog.content[category] !== null
+                  ? Object.keys(this.props.selectedLog.content[category]).map(key => {
+                    return (<LogDetail key={key} name={key} detail={this.props.selectedLog.content[category][key]}/>)
+                  })
+                  : <h5>{this.props.selectedLog.content[category]}</h5>
+                }
+              </DetailsList>
+            </div>
+          )
+        })}
       </DesktopColumns>
     )
 
