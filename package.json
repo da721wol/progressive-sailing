@@ -1,8 +1,8 @@
 {
-  "name": "progressive-sailing-react",
+  "name": "progressive-sailing",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://friedcode.github.io/progressive-sailing-react",
+  "homepage": "http://friedcode.github.io/progressive-sailing",
   "dependencies": {
     "@signalk/client": "^2.0.4",
     "react": "^16.11.0",
