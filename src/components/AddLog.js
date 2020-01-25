@@ -15,7 +15,6 @@ class AddLog extends React.Component {
     super(props);
     this.state = {
       error: null,
-      time: Date.now(),
       log: null
     }
   }
