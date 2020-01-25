@@ -1,30 +1,30 @@
 {
   "files": {
     "static/css/0.d32ddac6.chunk.css": "/progressive-sailing/static/css/0.d32ddac6.chunk.css",
-    "static/js/0.e9ebcebd.chunk.js": "/progressive-sailing/static/js/0.e9ebcebd.chunk.js",
-    "static/js/0.e9ebcebd.chunk.js.map": "/progressive-sailing/static/js/0.e9ebcebd.chunk.js.map",
+    "static/js/0.6cfbdd6f.chunk.js": "/progressive-sailing/static/js/0.6cfbdd6f.chunk.js",
+    "static/js/0.6cfbdd6f.chunk.js.map": "/progressive-sailing/static/js/0.6cfbdd6f.chunk.js.map",
     "main.css": "/progressive-sailing/static/css/main.9b62bdc3.chunk.css",
-    "main.js": "/progressive-sailing/static/js/main.2786bec8.chunk.js",
-    "main.js.map": "/progressive-sailing/static/js/main.2786bec8.chunk.js.map",
-    "runtime-main.js": "/progressive-sailing/static/js/runtime-main.de4ea9ae.js",
-    "runtime-main.js.map": "/progressive-sailing/static/js/runtime-main.de4ea9ae.js.map",
-    "static/js/3.cbcfeb5c.chunk.js": "/progressive-sailing/static/js/3.cbcfeb5c.chunk.js",
-    "static/js/3.cbcfeb5c.chunk.js.map": "/progressive-sailing/static/js/3.cbcfeb5c.chunk.js.map",
+    "main.js": "/progressive-sailing/static/js/main.752ec3d0.chunk.js",
+    "main.js.map": "/progressive-sailing/static/js/main.752ec3d0.chunk.js.map",
+    "runtime-main.js": "/progressive-sailing/static/js/runtime-main.1aef121f.js",
+    "runtime-main.js.map": "/progressive-sailing/static/js/runtime-main.1aef121f.js.map",
+    "static/js/3.6ecdbbb8.chunk.js": "/progressive-sailing/static/js/3.6ecdbbb8.chunk.js",
+    "static/js/3.6ecdbbb8.chunk.js.map": "/progressive-sailing/static/js/3.6ecdbbb8.chunk.js.map",
     "static/css/4.f8e6e8e4.chunk.css": "/progressive-sailing/static/css/4.f8e6e8e4.chunk.css",
-    "static/js/4.b3382c53.chunk.js": "/progressive-sailing/static/js/4.b3382c53.chunk.js",
-    "static/js/4.b3382c53.chunk.js.map": "/progressive-sailing/static/js/4.b3382c53.chunk.js.map",
+    "static/js/4.e1dde987.chunk.js": "/progressive-sailing/static/js/4.e1dde987.chunk.js",
+    "static/js/4.e1dde987.chunk.js.map": "/progressive-sailing/static/js/4.e1dde987.chunk.js.map",
     "index.html": "/progressive-sailing/index.html",
-    "precache-manifest.794608206ee77612c61cff4bddc930c1.js": "/progressive-sailing/precache-manifest.794608206ee77612c61cff4bddc930c1.js",
+    "precache-manifest.ed77bedf98ee30952a9fb64726352031.js": "/progressive-sailing/precache-manifest.ed77bedf98ee30952a9fb64726352031.js",
     "service-worker.js": "/progressive-sailing/service-worker.js",
     "static/css/0.d32ddac6.chunk.css.map": "/progressive-sailing/static/css/0.d32ddac6.chunk.css.map",
     "static/css/4.f8e6e8e4.chunk.css.map": "/progressive-sailing/static/css/4.f8e6e8e4.chunk.css.map",
     "static/css/main.9b62bdc3.chunk.css.map": "/progressive-sailing/static/css/main.9b62bdc3.chunk.css.map",
-    "static/js/3.cbcfeb5c.chunk.js.LICENSE": "/progressive-sailing/static/js/3.cbcfeb5c.chunk.js.LICENSE"
+    "static/js/3.6ecdbbb8.chunk.js.LICENSE": "/progressive-sailing/static/js/3.6ecdbbb8.chunk.js.LICENSE"
   },
   "entrypoints": [
-    "static/js/runtime-main.de4ea9ae.js",
-    "static/js/3.cbcfeb5c.chunk.js",
+    "static/js/runtime-main.1aef121f.js",
+    "static/js/3.6ecdbbb8.chunk.js",
     "static/css/main.9b62bdc3.chunk.css",
-    "static/js/main.2786bec8.chunk.js"
+    "static/js/main.752ec3d0.chunk.js"
   ]
 }
