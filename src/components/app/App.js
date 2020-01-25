@@ -112,6 +112,7 @@ class App extends React.Component {
       selectedPath: null
     };
     this.toggleNav = this.toggleNav.bind(this);
+    this.closeNav = this.closeNav.bind(this);
     this.selectPath = this.selectPath.bind(this);
   }
 
@@ -121,20 +122,23 @@ class App extends React.Component {
   }
 
   toggleNav() {
+    console.log(this.state)
     this.setState({navToggled: !this.state.navToggled});
   }
 
-
+  closeNav() {
+    if (this.state.navToggled) this.setState({navToggled: false});
+  }
 
   render() {
     return (
       <Router>
         <Suspense fallback={<div>Loading...</div>}>
-          <AppGrid navToggled={this.state.navToggled}>
+          <AppGrid onClick={this.closeNav} navToggled={this.state.navToggled}>
             <Header>
               {this.props.selectedPath === '/logs/details'
                 ? <div className={"c1"}>
-                  <Button  onClick={this.toggleNav}>
+                  <Button onClick={this.toggleNav}>
                     <Icons.Hamburger/>
                   </Button>
                   <Button>
@@ -146,14 +150,12 @@ class App extends React.Component {
                 : <Button className={"c1"} onClick={this.toggleNav}>
                   <Icons.Hamburger/>
                 </Button>
-
               }
-
               <b className={"c2"}>Progressive Sailing</b>
               <AddLog className={"c3"}/>
             </Header>
             <Switch className="App-content">
-              <Route  path={"/logs/details"} component={LogDetails}>
+              <Route path={"/logs/details"} component={LogDetails}>
               </Route>
               <Route path={"/logs"} component={LogsOverview}>
               </Route>
