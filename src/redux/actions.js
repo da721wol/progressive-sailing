@@ -1,7 +1,6 @@
 import { ADD_LOG, SELECT_LOG, SELECT_PATH } from './actionTypes';
-import {getLogListLength} from "./selectors";
 import {store} from './store';
-console.log(store.getState().logs.allIds.length)
+
 let nextLogId = store.getState().logs.allIds.length;
 export const addLog = content =>({
   type: ADD_LOG,

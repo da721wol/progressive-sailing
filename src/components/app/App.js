@@ -122,7 +122,6 @@ class App extends React.Component {
   }
 
   toggleNav() {
-    console.log(this.state)
     this.setState({navToggled: !this.state.navToggled});
   }
 
