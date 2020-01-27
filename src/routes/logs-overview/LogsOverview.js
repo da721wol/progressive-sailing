@@ -73,7 +73,7 @@ function DesktopView(props) {
     <div className={"logs-view"}>
       <div className={"log-list"}>
         {props.logs && props.logs.length
-          ? props.logs.map((log, index) => {
+          ? props.logs.slice(0).reverse().map((log, index) => {
             return <LogEntry key={`log-${log.id}`} logEntry={log} customClickEvent={props.selectLog.bind(this, log)}/>
           })
           : 'No Logs yet!'}
@@ -88,7 +88,7 @@ function MobileView(props) {
   return (
     <div className={"log-list App-content"}>
       {props.logs && props.logs.length
-        ? props.logs.map((log, index) => {
+        ? props.logs.slice(0).reverse().map((log, index) => {
           return <Link key={`log-${log.id}`}  to={{
             pathname: "/logs/details",
           }} onClick={() => {props.selectLog(log); props.selectPath("/logs/details")}}>

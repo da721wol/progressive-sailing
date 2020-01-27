@@ -6,7 +6,6 @@
     "content"
     "navbar";
   grid-template-rows: 80px 1fr 80px;
-  text-align: center;
   transition: margin-left .5s;
 }
 

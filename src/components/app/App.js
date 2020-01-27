@@ -15,6 +15,7 @@ import {connect} from "react-redux";
 
 const LogsOverview = lazy(() => import('../../routes/logs-overview/LogsOverview'));
 const LogDetails = lazy(() => import('../../routes/log-details/LogDetails'));
+const Settings = lazy(() => import('../../routes/settings/Settings'));
 
 const mapStateToProps = state => {
   return {
@@ -29,11 +30,11 @@ const AppGrid = styled.div`
     "header"
     "content";
   grid-template-rows: 80px 1fr;
-  text-align: center;
   transition: margin-left .5s;
 `;
 
 const Header = styled.div`
+text-align: center;
   display: grid;
   z-index: 2;
   grid-area: header;
@@ -164,8 +165,7 @@ class App extends React.Component {
               <Route path={"/panel"}>
                 Panel!
               </Route>
-              <Route path={"/settings"}>
-                Settings!
+              <Route path={"/settings"} component={Settings}>
               </Route>
             </Switch>
             <SideNav navToggled={this.state.navToggled}>

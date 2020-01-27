@@ -3,12 +3,13 @@ import './LogEntry.css'
 import Icons from '../icons'
 
 export function LogEntry(props) {
+  let time = new Date(props.logEntry.content.navigation.datetime.value);
   return (
     <div className="card" onClick={props.customClickEvent}>
       <div className="container">
         <div className={"time"}>
           {props.logEntry.content.navigation.datetime
-            ? props.logEntry.content.navigation.datetime.value.substr(11, 8)
+            ? time.toLocaleTimeString('de-DE')
             : 'No time available'
           }
         </div>

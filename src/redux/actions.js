@@ -1,4 +1,9 @@
-import { ADD_LOG, SELECT_LOG, SELECT_PATH } from './actionTypes';
+import {
+  ADD_LOG,
+  SELECT_LOG,
+  SELECT_PATH,
+  SET_SETTING,
+} from './actionTypes';
 import {store} from './store';
 
 let nextLogId = store.getState().logs.allIds.length;
@@ -20,5 +25,10 @@ export const selectLog = (id, content) => ({
 
 export const selectPath = content => ({
   type: SELECT_PATH,
+  payload: content
+});
+
+export const setSettings = content => ({
+  type: SET_SETTING,
   payload: content
 });
