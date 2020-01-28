@@ -38,7 +38,7 @@ text-align: center;
   display: grid;
   z-index: 2;
   grid-area: header;
-  grid-template-columns: 6em 1fr 3em;
+  grid-template-columns: 6em 1fr 6em;
   background-color: #e1f1ff;
   font-size: calc(10px + 2vmin);
   color: #000000;
@@ -50,9 +50,12 @@ text-align: center;
     grid-column: 1;
   }
   .c2 {
+    align-self: center;
+    text-align: center;
     grid-column: 2;
   }
   .c3 {
+    justify-self: end;
     grid-column: 3;
   }
 `;
@@ -84,6 +87,8 @@ const SideNav = styled.div`
     grid-template-columns: 50px 1fr;
     transition: 0.5s;
     justify-items: start;
+    align-items: center;
+    font-weight: 600;
     
     &:hover {
       background-color: #ffffff;
@@ -151,8 +156,12 @@ class App extends React.Component {
                   <Icons.Hamburger/>
                 </Button>
               }
-              <b className={"c2"}>Progressive Sailing</b>
-              <AddLog className={"c3"}/>
+              <div className={"c2"}>
+                <b>Progressive Sailing</b>
+              </div>
+              <div className={"c3"}>
+                <AddLog />
+              </div>
             </Header>
             <Switch className="App-content">
               <Route path={"/logs/details"} component={LogDetails}>
@@ -175,7 +184,7 @@ class App extends React.Component {
                 to="/logs"
               >
                 <Icons.Log width={"35px"} height={"35px"}/>
-                Logs
+                <div>Logs</div>
               </Link>
               <Link
                 className={"link"}
@@ -183,7 +192,7 @@ class App extends React.Component {
                 to="/map"
               >
                 <Icons.Map width={"35px"} height={"35px"}/>
-                Map
+                <div>Map</div>
               </Link>
               <Link
                 className={"link"}
@@ -191,14 +200,14 @@ class App extends React.Component {
                 to="/panel"
               >
                 <Icons.Sextant width={"35px"} height={"35px"}/>
-                Panel
+                <div>Panel</div>
               </Link>
               <Link
                 className={"link"}
                 onClick={() => this.selectPath('/settings')}
                 to="/settings">
                 <Icons.Settings width={"35px"} height={"35px"}/>
-                Settings
+                <div>Settings</div>
               </Link>
             </SideNav>
           </AppGrid>

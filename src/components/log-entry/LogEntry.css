@@ -1,9 +1,10 @@
 /* Add some padding inside the card container */
 .container {
   display: grid;
+  grid-gap: 5px;
   grid-template-areas:
-    "time title title title title title"
-    "type-icon d1 d2 d3 d4 d5";
+    "time time title title title"
+    "type-icon d1 d2 d3 d4";
   grid-template-rows: 1fr 4fr;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   padding: 5px;
@@ -27,9 +28,4 @@
 
 .d1 {
   grid-area: d1;
-}
-
-.icon-size {
-  width: 63px;
-  height: 63px;
 }

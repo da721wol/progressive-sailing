@@ -8,6 +8,8 @@ const Button = styled.button`
   font-size: 36px;
   border: none;
   background: none;
+  align-content: center;
+  padding: 0 10px;
 `;
 
 class AddLog extends React.Component {
@@ -45,11 +47,9 @@ class AddLog extends React.Component {
 
   render() {
     return (
-      <div>
-        <Button onClick={this.handleAddLog}>
-          +
-        </Button>
-      </div>
+      <Button onClick={this.handleAddLog}>
+        +
+      </Button>
     )
   }
 }

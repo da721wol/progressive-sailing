@@ -1,15 +1,38 @@
 import React from 'react';
 import './LogEntry.css'
 import Icons from '../icons'
+import styled from "styled-components";
+
+const Container = styled.div`
+  display: grid;
+  grid-gap: 5px;
+  grid-template-areas:
+    "time time title title title"
+    "type-icon d1 d2 d3 d4";
+  grid-template-rows: 1fr 4fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  padding: 5px;
+`;
+
+const setTime = (time, format) => {
+  if (format === "24-hour") {
+     return new Date(time)
+      .toLocaleTimeString('de-DE');
+  } else {
+    return new Date(time)
+      .toLocaleTimeString('en-US');
+  }
+};
 
 export function LogEntry(props) {
-  let time = new Date(props.logEntry.content.navigation.datetime.value);
+  let time = setTime(props.logEntry.content.navigation.datetime.value, props.settings.timeFormat);
+
   return (
     <div className="card" onClick={props.customClickEvent}>
-      <div className="container">
+      <Container>
         <div className={"time"}>
           {props.logEntry.content.navigation.datetime
-            ? time.toLocaleTimeString('de-DE')
+            ? time
             : 'No time available'
           }
         </div>
@@ -52,7 +75,7 @@ export function LogEntry(props) {
             setTrue={props.logEntry.content.environment.current.value.setTrue}
           />
         </div>
-      </div>
+      </Container>
     </div>
   )
 }

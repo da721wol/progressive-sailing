@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { LogEntry } from '../../components/log-entry/LogEntry';
 import './LogsOverview.css'
 import { connect } from 'react-redux';
-import { getLogs, getSelectedLog } from '../../redux/selectors';
+import { getLogs, getSelectedLog, getSettings } from '../../redux/selectors';
 import { selectLog, selectPath } from '../../redux/actions';
 
 const LogDetails = lazy(() => import('../../routes/log-details/LogDetails'));
@@ -11,7 +11,8 @@ const LogDetails = lazy(() => import('../../routes/log-details/LogDetails'));
 const mapStateToProps = state => {
   return {
     logs: getLogs(state),
-    selectedLog: getSelectedLog(state)
+    selectedLog: getSelectedLog(state),
+    settings: getSettings(state)
   }
 };
 
@@ -58,9 +59,19 @@ class LogsOverview extends React.Component {
     const isMobile = width <= 500;
 
     if (isMobile) {
-      return <MobileView logs={this.props.logs} selectLog={this.selectLog} selectPath={this.selectPath}/>;
+      return <MobileView
+        settings={this.props.settings}
+        logs={this.props.logs}
+        selectLog={this.selectLog}
+        selectPath={this.selectPath}
+      />;
     } else {
-      return <DesktopView logs={this.props.logs} selectedLog={this.state.selectedLog} selectLog={this.selectLog} />
+      return <DesktopView
+        settings={this.props.settings}
+        logs={this.props.logs}
+        selectedLog={this.state.selectedLog}
+        selectLog={this.selectLog}
+      />
 
     }
   }
@@ -74,7 +85,12 @@ function DesktopView(props) {
       <div className={"log-list"}>
         {props.logs && props.logs.length
           ? props.logs.slice(0).reverse().map((log, index) => {
-            return <LogEntry key={`log-${log.id}`} logEntry={log} customClickEvent={props.selectLog.bind(this, log)}/>
+            return <LogEntry
+              key={`log-${log.id}`}
+              logEntry={log}
+              customClickEvent={props.selectLog.bind(this, log)}
+              settings={props.settings}
+            />
           })
           : 'No Logs yet!'}
       </div>
@@ -92,7 +108,10 @@ function MobileView(props) {
           return <Link key={`log-${log.id}`}  to={{
             pathname: "/logs/details",
           }} onClick={() => {props.selectLog(log); props.selectPath("/logs/details")}}>
-            <LogEntry logEntry={log}/>
+            <LogEntry
+              logEntry={log}
+              settings={props.settings}
+            />
           </Link>
         })
         : 'No Logs yet!'}

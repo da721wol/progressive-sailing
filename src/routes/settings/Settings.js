@@ -5,7 +5,14 @@ import {setSettings} from "../../redux/actions";
 import styled from "styled-components";
 
 const mapStateToProps = state => {
-  return getSettings(state)
+  let settings = getSettings(state);
+  return {
+    temperature: settings.temperature,
+    distance: settings.distance,
+    speed: settings.speed,
+    angle: settings.angle,
+    timeFormat: settings.timeFormat
+  }
 };
 
 const Wrapper = styled.div`
@@ -22,7 +29,7 @@ const Form = styled.form`
   display: grid;
   grid-template-rows: repeat(${props => props.rows}, 50px);
   grid-gap: 20px;
-  margin: 20px;
+  margin: 0 20px;
   align-items: center;
   justify-items: start;
   position: relative;
@@ -62,11 +69,11 @@ class Settings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      temperature: 'C',
-      distance: 'm',
-      speed: 'm/s',
-      angle: 'deg',
-      timeFormat: '24-hour',
+      temperature: this.props.temperature,
+      distance: this.props.distance,
+      speed: this.props.speed,
+      angle: this.props.angle,
+      timeFormat: this.props.timeFormat,
       dirty: false
     };
     this.handleChange = this.handleChange.bind(this);
@@ -92,7 +99,7 @@ class Settings extends React.Component {
         <Form className={"card"} rows={"4"} onSubmit={this.handleSubmit}>
           <Label>
             Temperature Unit:
-            <select name={"temperature"} onChange={this.handleChange}>
+            <select value={this.state.temperature} name={"temperature"} onChange={this.handleChange}>
               <option value={"C"}>Celsius</option>
               <option value={"K"}>Kelvin</option>
               <option value={"F"}>Fahrenheit</option>
@@ -100,14 +107,14 @@ class Settings extends React.Component {
           </Label>
           <Label>
             Distance Unit:
-            <select name={"distance"} onChange={this.handleChange}>
+            <select value={this.state.distance} name={"distance"} onChange={this.handleChange}>
               <option value={"m"}>Metric</option>
               <option value={"i"}>Imperial</option>
             </select>
           </Label>
           <Label>
             Speed Unit:
-            <select name={"speed"} onChange={this.handleChange}>
+            <select value={this.state.speed} name={"speed"} onChange={this.handleChange}>
               <option value={"m/s"}>Meters per second</option>
               <option value={"km/h"}>Kilometers per hour</option>
               <option value={"knot"}>Knots</option>
@@ -116,7 +123,7 @@ class Settings extends React.Component {
           </Label>
           <Label>
             Angular Unit:
-            <select name={"angle"} onChange={this.handleChange}>
+            <select value={this.state.angle} name={"angle"} onChange={this.handleChange}>
               <option value={"deg"}>Degree</option>
               <option value={"rad"}>Radian</option>
             </select>
@@ -126,7 +133,7 @@ class Settings extends React.Component {
         <Form className={"card"} rows={"1"} onSubmit={this.handleSubmit}>
           <Label>
             Time Format:
-            <select name={"timeFormat"} onChange={this.handleChange}>
+            <select value={this.state.timeFormat} name={"timeFormat"} onChange={this.handleChange}>
               <option value={"24-hour"}>24 Hour</option>
               <option value={"am/pm"}>AM/PM</option>
             </select>
