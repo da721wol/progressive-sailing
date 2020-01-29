@@ -27,10 +27,14 @@ const TitleBar = styled.div`
   margin: 0 0 20px;
 `;
 
+const Category = styled.div`
+  border: black;
+  border-radius: 2px;
+`;
+
 const ValueList = styled.div`
   display: grid;
   grid-row-gap: 10px;
-
 `;
 
 const ValueListItem = styled.div`
@@ -101,47 +105,6 @@ const getIcon = function (name) {
   }
 };
 
-const getValues = function (log) {
-  let values = {};
-  if (typeof log ==='object') {
-    Object.keys(log).map( key => {
-      console.log(log[key])
-      switch (key) {
-        case 'position':
-          values['position'] = {
-            longitude: {value: log[key].value.longitude},
-            latitude: {value: log[key].value.latitude}
-          };
-          break;
-        case 'current':
-          values = {
-            setTrue: {value: log.detail.value.setTrue},
-            drift: {value: log.detail.value.drift},
-            setMagnetic: {value: log.detail.setMagnetic}
-          };
-          break;
-        case 'batteries':
-          // eslint-disable-next-line
-          Object.keys(log.detail).map(function (key) {
-            values[key +' (time remaining)'] = {value: log.detail[key].capacity.timeRemaining.value};
-            values[key + ' (voltage)'] = {value: log.detail[key].voltage.value};
-            values[key + ' (current)'] = {value: log.detail[key].current.value};
-            values[key + ' (temperature)'] = {value: log.detail[key].temperature.value}
-
-          });
-          break;
-        case 'server':
-          values[key] = {value: log.detail.newVersion.value.message};
-          break;
-        default:
-          values[key] = log[key];
-          break;
-      }
-    })
-  }
-  return values
-};
-
 export class LogDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -166,7 +129,7 @@ export class LogDetail extends React.Component {
     }
   };
 
-  getUnit(unit) {
+  getSettingsUnit(unit) {
     switch(unit) {
       case "C": case "F": case "K":
         return this.props.settings.temperature;
@@ -181,6 +144,14 @@ export class LogDetail extends React.Component {
     }
   }
 
+  getUnit(val, key) {
+    return val[key].meta ? val[key].meta.units ? val[key].meta.units : "" : ""
+  }
+
+  roundValue(val) {
+    return typeof val === 'number' ? val.toFixed(2) : val
+  }
+
   valueRender = detail => {
     let renderElement;
     console.log(detail);
@@ -190,29 +161,48 @@ export class LogDetail extends React.Component {
         break;
       case 'object':
         renderElement = Object.keys(detail).map(key => {
-          let unit = detail[key].meta
-            ? detail[key].meta.units
-              ? detail[key].meta.units : ""
-            : "";
           if (typeof detail[key].value !== 'object' && detail[key].value) {
+            let unit = this.getUnit(detail, key);
             return <ValueListItem key={key}>
               <div>{getIcon(key)}</div>
               <div>{this.capitalize(key)}</div>
-              <div>{this.convert(detail[key].value, unit)}</div>
-              <div>{this.getUnit(unit)}
+              <div>{this.roundValue(this.convert(detail[key].value, unit))}</div>
+              <div>{this.getSettingsUnit(unit)}
               </div>
             </ValueListItem>;
-          } else {
+          } else if (key !== 'server') {
             if (detail[key].value) {
-              return Object.keys(detail[key].value).map(k => {
+              return (
+                <Category key={key}>
+                  {this.capitalize(key)}
+                {Object.keys(detail[key].value).map(k => {
+                let unit = this.getUnit(detail, key);
+                return (
+                  <ValueListItem key={key + k}>
+                    <div>{getIcon(k)}</div>
+                    <div>{this.capitalize(k)}</div>
+                    <div>{this.roundValue(this.convert(detail[key].value[k], unit))}</div>
+                    <div>{this.getSettingsUnit(unit)}
+                    </div>
+                  </ValueListItem>
+                )
+              })}
+                </Category>)
+            } else {
+              return (
+                <Category key={key}>
+                  {this.capitalize(key)}
+                {Object.keys(detail[key]).map(k => {
+                let unit = this.getUnit(detail[key], k);
                 return <ValueListItem key={key + k}>
                   <div>{getIcon(k)}</div>
                   <div>{this.capitalize(k)}</div>
-                  <div>{this.convert(detail[key].value[k], unit)}</div>
-                  <div>{this.getUnit(unit)}
+                  <div>{this.roundValue(this.convert(detail[key][k].value, unit))}</div>
+                  <div>{this.getSettingsUnit(unit)}
                   </div>
                 </ValueListItem>
-              })
+              })}
+                </Category>)
             }
           }
         });
@@ -231,52 +221,13 @@ export class LogDetail extends React.Component {
           <TitleBar>
             {getIcon(this.props.name)}
             {this.capitalize(this.props.name)}
-            <Icons.MoreVert height={"35px"} width={"35px"}/>
+            <Icons.MoreVert height={"20px"} width={"20px"}/>
           </TitleBar>
           <ValueList>
             {this.valueRender(this.props.detail)}
           </ValueList>
-          {/*{typeof props.detail === 'object'*/}
-          {/*  ? Object.keys(props.detail).map(key => {*/}
-          {/*    return (*/}
-          {/*      <ValueListItem>*/}
-          {/*        {getIcon(key)}*/}
-          {/*        {key}*/}
-
-          {/*      </ValueListItem>*/}
-          {/*    )*/}
-          {/*  })*/}
-          {/*  : props.detail*/}
-          {/*}*/}
         </Container>
       </div>
-      // <div className={"card"}>
-      //   <Container detail={props.detail} length={detailsLength}>
-      //     <div style={{justifySelf: "start"}}>
-      //       {getIcon(props.name)}
-      //       <div className={"detail-name"}>
-      //         <b>{capitalize(props.name)}</b>
-      //       </div>
-      //     </div>
-      //     <div style={{justifySelf: "end"}}>
-      //       <Button>
-      //         <Icons.Edit width={"35px"} height={"35px"} style={{justifySelf: "end"}}/>
-      //         <b>Edit</b>
-      //       </Button>
-      //     </div>
-      //     {!values.value
-      //       ? Object.keys(values).map(key => {
-      //         return (
-      //           <div style={{justifySelf: "start"}} key={key}>
-      //             {getIcon(key)}
-      //             {capitalize(key)} : {typeof values[key].value !== 'object' ? values[key].value : 'Value missing'}
-      //           </div>
-      //         )
-      //       })
-      //       : <div style={{justifySelf: "start"}}>Value: {values.value} </div>
-      //     }
-      //   </Container>
-      // </div>
     )
   }
 
