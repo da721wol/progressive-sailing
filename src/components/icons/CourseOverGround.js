@@ -27,7 +27,7 @@ function CourseOverGround(props) {
         fontSize="139.605"
       >
         {props.courseOverGround ?
-          props.courseOverGround.toFixed(2)
+          props.courseOverGround.toFixed(1)
           : null
         }
       </text>

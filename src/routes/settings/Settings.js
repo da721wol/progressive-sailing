@@ -11,7 +11,8 @@ const mapStateToProps = state => {
     distance: settings.distance,
     speed: settings.speed,
     angle: settings.angle,
-    timeFormat: settings.timeFormat
+    timeFormat: settings.timeFormat,
+    dateFormat: settings.dateFormat
   }
 };
 
@@ -74,6 +75,7 @@ class Settings extends React.Component {
       speed: this.props.speed,
       angle: this.props.angle,
       timeFormat: this.props.timeFormat,
+      dateFormat: this.props.dateFormat,
       dirty: false
     };
     this.handleChange = this.handleChange.bind(this);
@@ -118,7 +120,7 @@ class Settings extends React.Component {
               <option value={"m/s"}>Meters per second</option>
               <option value={"km/h"}>Kilometers per hour</option>
               <option value={"knot"}>Knots</option>
-              <option value={"mph"}>Miles per hour</option>
+              <option value={"m/h"}>Miles per hour</option>
             </select>
           </Label>
           <Label>
@@ -136,6 +138,13 @@ class Settings extends React.Component {
             <select value={this.state.timeFormat} name={"timeFormat"} onChange={this.handleChange}>
               <option value={"24-hour"}>24 Hour</option>
               <option value={"am/pm"}>AM/PM</option>
+            </select>
+          </Label>
+          <Label>
+            Date Format:
+            <select value={this.state.dateFormat} name={"dateFormat"} onChange={this.handleChange}>
+              <option value={"dd/mm/yy"}>DD/MM/YY</option>
+              <option value={"mm/dd/yy"}>MM/DD/YY</option>
             </select>
           </Label>
         </Form>

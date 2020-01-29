@@ -26,7 +26,7 @@ function Current(props) {
         fontFamily="'ArialMT', 'Arial', sans-serif"
         fontSize="139.605"
       >
-        {props.drift ? props.drift.toFixed(2): 0}
+        {props.drift ? props.drift.toFixed(1): 0}
       </text>
       <path d="M300.319 173.902L340 260h-79.362l39.681-86.098z"/>
       <path
@@ -47,7 +47,7 @@ function Current(props) {
         fontFamily="'ArialMT', 'Arial', sans-serif"
         fontSize="139.605"
       >
-        {props.setTrue ? props.setTrue.toFixed(2) : 0}
+        {props.setTrue ? props.setTrue.toFixed(1) : 0}
       </text>
     </svg>
   );

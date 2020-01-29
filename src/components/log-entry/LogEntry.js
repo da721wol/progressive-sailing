@@ -2,6 +2,7 @@ import React from 'react';
 import './LogEntry.css'
 import Icons from '../icons'
 import styled from "styled-components";
+import {convertAngle, convertSpeed, convertTime} from "../UnitConverter"
 
 const Container = styled.div`
   display: grid;
@@ -14,18 +15,8 @@ const Container = styled.div`
   padding: 5px;
 `;
 
-const setTime = (time, format) => {
-  if (format === "24-hour") {
-     return new Date(time)
-      .toLocaleTimeString('de-DE');
-  } else {
-    return new Date(time)
-      .toLocaleTimeString('en-US');
-  }
-};
-
 export function LogEntry(props) {
-  let time = setTime(props.logEntry.content.navigation.datetime.value, props.settings.timeFormat);
+  let time = convertTime(props.logEntry.content.navigation.datetime.value, props.settings.timeFormat);
 
   return (
     <div className="card" onClick={props.customClickEvent}>
@@ -57,22 +48,22 @@ export function LogEntry(props) {
           <Icons.CourseOverGround
             width={"60px"}
             height={"60px"}
-            courseOverGround={props.logEntry.content.navigation.courseOverGroundTrue.value}
+            courseOverGround={convertAngle(props.logEntry.content.navigation.courseOverGroundTrue.value, props.settings.angle)}
           />
         </div>
         <div className={"d3"}>
           <Icons.SpeedThroughWater
             width={"60px"}
             height={"60px"}
-            speedThroughWater={props.logEntry.content.navigation.speedThroughWater.value}
+            speedThroughWater={convertSpeed(props.logEntry.content.navigation.speedThroughWater.value, props.settings.speed)}
           />
         </div>
         <div className={"d4"}>
           <Icons.Current
             width={"60px"}
             height={"60px"}
-            drift={props.logEntry.content.environment.current.value.drift}
-            setTrue={props.logEntry.content.environment.current.value.setTrue}
+            drift={convertAngle(props.logEntry.content.environment.current.value.drift, props.settings.angle)}
+            setTrue={convertAngle(props.logEntry.content.environment.current.value.setTrue, props.settings.angle)}
           />
         </div>
       </Container>

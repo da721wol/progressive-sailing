@@ -5,6 +5,7 @@
   "homepage": "http://friedcode.github.io/progressive-sailing",
   "dependencies": {
     "@signalk/client": "^2.0.4",
+    "convert-units": "^2.3.4",
     "pwa-helpers": "^0.9.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",

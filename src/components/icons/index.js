@@ -26,6 +26,7 @@ import Compass from "./Compass";
 import Water from "./Water";
 import Hamburger from "./Hamburger";
 import Arrow from "./Arrow";
+import MoreVert from "./MoreVert";
 
 export default {
   AntennaAltitude,
@@ -55,5 +56,6 @@ export default {
   Compass,
   Water,
   Hamburger,
-  Arrow
+  Arrow,
+  MoreVert
 }

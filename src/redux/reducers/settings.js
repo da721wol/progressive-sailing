@@ -5,7 +5,8 @@ const initialState = {
   distance: 'm',
   speed: 'm/s',
   angle: 'deg',
-  timeFormat: '24-hour'
+  timeFormat: '24-hour',
+  dateFormat: 'dd/mm/yy'
 };
 
 export default function(state = initialState, action) {

@@ -1,6 +1,6 @@
 .log-list {
   display: grid;
-  /*grid-template-rows: repeat(auto-fill, 110px);*/
+  grid-template-rows: repeat(auto-fill, 120px);
   overflow-x: hidden;
   overflow-y: scroll;
 }
