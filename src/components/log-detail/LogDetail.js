@@ -21,15 +21,19 @@ const Button = styled.div`
 const TitleBar = styled.div`
   display: grid;
   grid-template-columns: 35px 1fr 35px;
-  font-weight: 600;
+  grid-gap: 10px;
+  font-weight: ${props => props.weight || 700};
   font-size: 1.2em;
   align-items: center;
   margin: 0 0 20px;
 `;
 
 const Category = styled.div`
-  border: black;
-  border-radius: 2px;
+  //border: solid 1px black;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+  padding: 10px;
+
 `;
 
 const ValueList = styled.div`
@@ -59,7 +63,7 @@ const getRowAmount = function (log) {
 const getIcon = function (name) {
   switch (name) {
     case 'position':
-      return <Icons.Position width={"50px"} height={"50px"}/>;
+      return <Icons.Position width={"35px"} height={"35px"}/>;
     case 'longitude':
       return <Icons.Longitude width={"35px"} height={"35px"}/>;
     case 'latitude':
@@ -67,7 +71,7 @@ const getIcon = function (name) {
     case 'datetime':
       return <Icons.Datetime width={"35px"} height={"35px"}/>;
     case 'gnss':
-      return <Icons.Gnss width={"50px"} height={"50px"}/>;
+      return <Icons.Gnss width={"35px"} height={"35px"}/>;
     case 'magneticVariation':
       return <Icons.MagneticVariation width={"35px"} height={"35px"}/>;
     case 'satellites':
@@ -152,7 +156,7 @@ export class LogDetail extends React.Component {
     return typeof val === 'number' ? val.toFixed(2) : val
   }
 
-  valueRender = detail => {
+  valueRender(detail) {
     let renderElement;
     console.log(detail);
     switch(typeof detail) {
@@ -174,7 +178,10 @@ export class LogDetail extends React.Component {
             if (detail[key].value) {
               return (
                 <Category key={key}>
-                  {this.capitalize(key)}
+                  <TitleBar weight={500}>
+                    {getIcon(key)}
+                    {this.capitalize(key)}
+                  </TitleBar>
                 {Object.keys(detail[key].value).map(k => {
                 let unit = this.getUnit(detail, key);
                 return (
@@ -191,7 +198,10 @@ export class LogDetail extends React.Component {
             } else {
               return (
                 <Category key={key}>
-                  {this.capitalize(key)}
+                  <TitleBar weight={500}>
+                    {getIcon(key)}
+                    {this.capitalize(key)}
+                  </TitleBar>
                 {Object.keys(detail[key]).map(k => {
                 let unit = this.getUnit(detail[key], k);
                 return <ValueListItem key={key + k}>
@@ -208,7 +218,6 @@ export class LogDetail extends React.Component {
         });
         break;
       default:
-        renderElement = <div>Uhm</div>;
         break;
     }
     return renderElement
