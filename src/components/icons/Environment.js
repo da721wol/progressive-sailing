@@ -1,6 +1,6 @@
 import React from "react";
 
-function LatitudeLongitude(props) {
+function Environment(props) {
   return (
     <svg
       width={props.width || "35px"} height={props.height || "35px"}
@@ -21,4 +21,4 @@ function LatitudeLongitude(props) {
   );
 }
 
-export default LatitudeLongitude;
+export default Environment;

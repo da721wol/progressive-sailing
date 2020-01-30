@@ -1,7 +1,7 @@
 import convert from "convert-units";
 
 export const convertTime = (time, setting) => {
-  if (setting=== "24-hour") {
+  if (setting === "24-hour") {
     return new Date(time)
       .toLocaleTimeString('de-DE');
   } else {
@@ -11,11 +11,19 @@ export const convertTime = (time, setting) => {
 };
 
 export const convertDate = (date, setting) => {
-  return new Date(date).toLocaleDateString()
+  if (setting === "dd/mm/yy") {
+    return new Date(date).toLocaleDateString('de-DE')
+  } else {
+    return new Date(date).toLocaleDateString('en-US')
+  }
 };
 
 export const convertDistance = (val, setting) => {
-  return val
+  if (setting !== 'm') {
+    return convert(val).from('m').to('ft-us')
+  } else {
+    return val
+  }
 };
 
 export const convertAngle = (val, setting) => {
@@ -35,7 +43,11 @@ export const convertSpeed = (val, setting) => {
 };
 
 export const convertTemperature = (val, setting) => {
-  return val
+  if (setting !== 'K') {
+    return convert(val).from('K').to(setting)
+  } else {
+    return val
+  }
 };
 
 

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Icons from '../icons'
 import {
-  convertAngle, convertDistance,
+  convertAngle, convertDate, convertDistance,
   convertSpeed,
   convertTemperature,
   convertTime
@@ -20,7 +20,7 @@ const Button = styled.div`
 
 const TitleBar = styled.div`
   display: grid;
-  grid-template-columns: 35px 1fr 35px;
+  grid-template-columns: 50px 1fr 35px;
   grid-gap: 10px;
   font-weight: ${props => props.weight || 700};
   font-size: 1.2em;
@@ -60,52 +60,74 @@ const getRowAmount = function (log) {
   }
 };
 
-const getIcon = function (name) {
+const getIcon = function (name, width, height) {
   switch (name) {
     case 'position':
-      return <Icons.Position width={"35px"} height={"35px"}/>;
+      return <Icons.Position width={width} height={height}/>;
     case 'longitude':
-      return <Icons.Longitude width={"35px"} height={"35px"}/>;
+      return <Icons.Longitude width={width} height={height}/>;
     case 'latitude':
-      return <Icons.Latitude width={"35px"} height={"35px"}/>;
+      return <Icons.Latitude width={width} height={height}/>;
     case 'datetime':
-      return <Icons.Datetime width={"35px"} height={"35px"}/>;
+      return <Icons.Datetime width={width} height={height}/>;
     case 'gnss':
-      return <Icons.Gnss width={"35px"} height={"35px"}/>;
+      return <Icons.Gnss width={width} height={height}/>;
     case 'magneticVariation':
-      return <Icons.MagneticVariation width={"35px"} height={"35px"}/>;
+      return <Icons.MagneticVariation width={width} height={height}/>;
     case 'satellites':
-      return <Icons.Satellites width={"35px"} height={"35px"}/>;
+      return <Icons.Satellites width={width} height={height}/>;
     case 'Speed':
-      return <Icons.Speed width={"35px"} height={"35px"}/>;
+      return <Icons.Speed width={width} height={height}/>;
     case 'speedThroughWater':
-      return <Icons.SpeedThroughWater width={"35px"} height={"35px"}/>;
+      return <Icons.SpeedThroughWater width={width} height={height}/>;
     case 'trip':
-      return <Icons.Trip width={"35px"} height={"35px"}/>;
+      return <Icons.Trip width={width} height={height}/>;
     case 'date':
-      return <Icons.Date width={"35px"} height={"35px"}/>;
+      return <Icons.Date width={width} height={height}/>;
     case 'time':
-      return <Icons.Datetime width={"35px"} height={"35px"}/>;
+      return <Icons.Datetime width={width} height={height}/>;
     case 'antennaAltitude':
-      return <Icons.AntennaAltitude width={"35px"} height={"35px"}/>;
+      return <Icons.AntennaAltitude width={width} height={height}/>;
     case 'horizontalDilution':
-      return <Icons.HorizontalDilution width={"35px"} height={"35px"}/>;
+      return <Icons.HorizontalDilution width={width} height={height}/>;
     case 'type':
-      return <Icons.Gnss width={"35px"} height={"35px"}/>;
+      return <Icons.Gnss width={width} height={height}/>;
     case 'log':
-      return <Icons.Log width={"35px"} height={"35px"}/>;
+      return <Icons.Log width={width} height={height}/>;
     case 'speedOverGround':
-      return <Icons.SpeedOverGround width={"35px"} height={"35px"}/>;
+      return <Icons.SpeedOverGround width={width} height={height}/>;
     case 'courseOverGroundTrue':
-      return <Icons.CourseOverGround width={"35px"} height={"35"}/>;
+      return <Icons.CourseOverGround width={width} height={"35"}/>;
     case 'headingTrue':
-      return <Icons.Compass width={"35px"} height={"35px"}/>;
+      return <Icons.Compass width={width} height={height}/>;
     case 'water':
-      return <Icons.Water width={"35px"} height={"35px"}/>;
+      return <Icons.Water width={width} height={height}/>;
     case 'current':
-      return <Icons.Current width={"35px"} height={"35px"}/>;
+      return <Icons.Current width={width} height={height}/>;
+    case 'navigation':
+      return <Icons.Navigation width={width} height={height}/>;
+    case 'uuid':
+      return <Icons.Uuid width={width} height={height}/>;
+    case 'name':
+      return <Icons.Name width={width} height={height}/>;
+    case 'performance':
+      return <Icons.Performance width={width} height={height}/>;
+    case 'environment':
+      return <Icons.Environment width={width} height={height}/>;
+    case 'wind':
+      return <Icons.Wind width={width} height={height}/>;
+    case 'depth':
+      return <Icons.Depth width={width} height={height}/>;
+    case 'mmsi':
+      return <Icons.Mmsi width={width} height={height}/>;
+    case 'electrical':
+      return <Icons.Electrical width={width} height={height}/>;
+    case 'batteries':
+      return <Icons.Battery width={width} height={height}/>;
+    case 'notifications':
+      return <Icons.Notification width={width} height={height}/>;
     default:
-      return <Icons.Edit width={"35px"} height={"35px"}/>;
+      break;
   }
 };
 
@@ -128,6 +150,10 @@ export class LogDetail extends React.Component {
         return convertSpeed(value, this.props.settings.speed);
       case "deg": case "rad":
         return convertAngle(value, this.props.settings.angle);
+      case "mm/dd/yy": case "dd/mm/yy":
+        return convertDate(value, this.props.settings.dateFormat);
+      case "24-hour": case "am/pm":
+        return convertTime(value, this.props.settings.timeFormat);
       default:
         return value
     }
@@ -158,63 +184,149 @@ export class LogDetail extends React.Component {
 
   valueRender(detail) {
     let renderElement;
-    console.log(detail);
+    // console.log(detail);
     switch(typeof detail) {
       case 'string':
-        renderElement = <ValueListItem>{detail}</ValueListItem>;
+        renderElement = <p>{detail}</p>;
         break;
       case 'object':
         renderElement = Object.keys(detail).map(key => {
-          if (typeof detail[key].value !== 'object' && detail[key].value) {
-            let unit = this.getUnit(detail, key);
-            return <ValueListItem key={key}>
-              <div>{getIcon(key)}</div>
-              <div>{this.capitalize(key)}</div>
-              <div>{this.roundValue(this.convert(detail[key].value, unit))}</div>
-              <div>{this.getSettingsUnit(unit)}
-              </div>
-            </ValueListItem>;
-          } else if (key !== 'server') {
-            if (detail[key].value) {
+          switch (key) {
+            case 'speedThroughWater': case 'speedThroughWaterReferenceType': case 'log': case 'speedOverGround':
+            case 'speedOverGroundTrue': case 'courseOverGroundTrue': case 'headingTrue': case 'magneticVariation':
+            case 'courseOverGroundMagnetic': case 'velocityMadeGood':
+              let unit = this.getUnit(detail, key);
+              return <ValueListItem key={key}>
+                <div>{getIcon(key, "35px", "35px")}</div>
+                <div>{this.capitalize(key)}</div>
+                <div>{this.roundValue(this.convert(detail[key].value, unit))}</div>
+                <div>{this.getSettingsUnit(unit)}</div>
+              </ValueListItem>;
+            case 'position': case 'current':
               return (
                 <Category key={key}>
                   <TitleBar weight={500}>
-                    {getIcon(key)}
+                    {getIcon(key, "35px", "35px")}
                     {this.capitalize(key)}
                   </TitleBar>
-                {Object.keys(detail[key].value).map(k => {
-                let unit = this.getUnit(detail, key);
-                return (
-                  <ValueListItem key={key + k}>
-                    <div>{getIcon(k)}</div>
-                    <div>{this.capitalize(k)}</div>
-                    <div>{this.roundValue(this.convert(detail[key].value[k], unit))}</div>
-                    <div>{this.getSettingsUnit(unit)}
-                    </div>
+                  {Object.keys(detail[key].value).map(k => {
+                    let unit = this.getUnit(detail, key);
+                    return (
+                      <ValueListItem key={key + k}>
+                        <div>{getIcon(k, "35px", "35px")}</div>
+                        <div>{this.capitalize(k)}</div>
+                        <div>{this.roundValue(this.convert(detail[key].value[k], unit))}</div>
+                        <div>{this.getSettingsUnit(unit)}
+                        </div>
+                      </ValueListItem>
+                    )
+                  })}
+                </Category>);
+            case 'gnss': case 'trip': case 'water': case 'wind': case 'depth': case 'courseRhumbline':
+              return (
+                <Category key={key}>
+                  <TitleBar weight={500}>
+                    {getIcon(key, "35px", "35px")}
+                    {this.capitalize(key)}
+                  </TitleBar>
+                  {Object.keys(detail[key]).map(k => {
+                    let unit = this.getUnit(detail[key], k);
+                    return <ValueListItem key={key + k}>
+                      <div>{getIcon(k)}</div>
+                      <div>{this.capitalize(k)}</div>
+                      <div>{this.roundValue(this.convert(detail[key][k].value, unit))}</div>
+                      <div>{this.getSettingsUnit(unit)}
+                      </div>
+                    </ValueListItem>
+                  })}
+                </Category>);
+            case 'datetime':
+              return (
+                <Category key={key}>
+                  <TitleBar weight={500}>
+                    {getIcon(key, "35px", "35px")}
+                    {this.capitalize(key)}
+                  </TitleBar>
+                  <ValueListItem key={key + 'date'}>
+                    <div>{getIcon('date', "35px", "35px")}</div>
+                    <div>{this.capitalize('date')}</div>
+                    <div>{this.convert(detail.datetime.value, "dd/mm/yy")}</div>
                   </ValueListItem>
-                )
-              })}
-                </Category>)
-            } else {
+                  <ValueListItem key={key + 'time'}>
+                    <div>{getIcon('time', "35px", "35px")}</div>
+                    <div>{this.capitalize('time')}</div>
+                    <div>{this.convert(detail.datetime.value, "24-hour")}</div>
+                  </ValueListItem>
+                </Category>
+              );
+            case 'server':
               return (
                 <Category key={key}>
                   <TitleBar weight={500}>
-                    {getIcon(key)}
+                    {getIcon(key, "35px", "35px")}
                     {this.capitalize(key)}
                   </TitleBar>
-                {Object.keys(detail[key]).map(k => {
-                let unit = this.getUnit(detail[key], k);
-                return <ValueListItem key={key + k}>
-                  <div>{getIcon(k)}</div>
-                  <div>{this.capitalize(k)}</div>
-                  <div>{this.roundValue(this.convert(detail[key][k].value, unit))}</div>
-                  <div>{this.getSettingsUnit(unit)}
-                  </div>
-                </ValueListItem>
-              })}
-                </Category>)
-            }
+                    <div>{key.newVersion ? key.newVersion.value.message : 'value not found'}</div>
+                </Category>
+              );
+            default:
+              console.log(key);
+              break;
           }
+
+          // if (typeof detail[key].value !== 'object' && detail[key].value || detail[key].value === 0) {
+          //   console.log(`case a: ${key}`);
+          //   let unit = this.getUnit(detail, key);
+          //   return <ValueListItem key={key}>
+          //     <div>{getIcon(key, "35px", "35px")}</div>
+          //     <div>{this.capitalize(key)}</div>
+          //     <div>{this.roundValue(this.convert(detail[key].value, unit))}</div>
+          //     <div>{this.getSettingsUnit(unit)}
+          //     </div>
+          //   </ValueListItem>;
+          // } else if (key !== 'server') {
+          //   if (detail[key].value) {
+          //     console.log(`case b: ${key}`);
+          //     return (
+          //       <Category key={key}>
+          //         <TitleBar weight={500}>
+          //           {getIcon(key, "35px", "35px")}
+          //           {this.capitalize(key)}
+          //         </TitleBar>
+          //       {Object.keys(detail[key].value).map(k => {
+          //       let unit = this.getUnit(detail, key);
+          //       return (
+          //         <ValueListItem key={key + k}>
+          //           <div>{getIcon(k, "35px", "35px")}</div>
+          //           <div>{this.capitalize(k)}</div>
+          //           <div>{this.roundValue(this.convert(detail[key].value[k], unit))}</div>
+          //           <div>{this.getSettingsUnit(unit)}
+          //           </div>
+          //         </ValueListItem>
+          //       )
+          //     })}
+          //       </Category>)
+          //   } else {
+          //     console.log(`case c: ${key}`);
+          //     return (
+          //       <Category key={key}>
+          //         <TitleBar weight={500}>
+          //           {getIcon(key, "35px", "35px")}
+          //           {this.capitalize(key)}
+          //         </TitleBar>
+          //       {Object.keys(detail[key]).map(k => {
+          //       let unit = this.getUnit(detail[key], k);
+          //       return <ValueListItem key={key + k}>
+          //         <div>{getIcon(k)}</div>
+          //         <div>{this.capitalize(k)}</div>
+          //         <div>{this.roundValue(this.convert(detail[key][k].value, unit))}</div>
+          //         <div>{this.getSettingsUnit(unit)}
+          //         </div>
+          //       </ValueListItem>
+          //     })}
+          //       </Category>)
+          //   }
+          // }
         });
         break;
       default:
@@ -228,7 +340,7 @@ export class LogDetail extends React.Component {
       <div className={"card"}>
         <Container>
           <TitleBar>
-            {getIcon(this.props.name)}
+            {getIcon(this.props.name, "50px", "50px")}
             {this.capitalize(this.props.name)}
             <Icons.MoreVert height={"20px"} width={"20px"}/>
           </TitleBar>

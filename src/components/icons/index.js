@@ -5,7 +5,7 @@ import Datetime from "./Datetime"
 import Gnss from "./Gnss"
 import HorizontalDilution from "./HorizontalDilution"
 import Latitude from "./Latitude"
-import LatitudeLongitude from "./LatitudeLongitude"
+import Environment from "./Environment"
 import MagneticVariation from "./MagneticVariation"
 import Satellites from "./Satellites"
 import Speed from "./Speed"
@@ -27,6 +27,16 @@ import Water from "./Water";
 import Hamburger from "./Hamburger";
 import Arrow from "./Arrow";
 import MoreVert from "./MoreVert";
+import Navigation from "./Navigation";
+import Uuid from "./Uuid";
+import Name from "./Name";
+import Performance from "./Performance";
+import Wind from "./Wind";
+import Depth from "./Depth";
+import Mmsi from "./Mmsi";
+import Electrical from "./Electrical";
+import Battery from "./Battery";
+import Notification from "./Notification";
 
 export default {
   AntennaAltitude,
@@ -36,7 +46,7 @@ export default {
   Datetime,
   Gnss,
   HorizontalDilution,
-  LatitudeLongitude,
+  Environment,
   Latitude,
   MagneticVariation,
   Satellites,
@@ -57,5 +67,15 @@ export default {
   Water,
   Hamburger,
   Arrow,
-  MoreVert
+  MoreVert,
+  Navigation,
+  Uuid,
+  Name,
+  Performance,
+  Wind,
+  Depth,
+  Mmsi,
+  Electrical,
+  Battery,
+  Notification
 }
