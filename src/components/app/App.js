@@ -34,14 +34,14 @@ const AppGrid = styled.div`
 `;
 
 const Header = styled.div`
-text-align: center;
+  text-align: center;
   display: grid;
   z-index: 2;
   grid-area: header;
   grid-template-columns: 6em 1fr 6em;
-  background-color: #e1f1ff;
+  background-color: #334152;
   font-size: calc(10px + 2vmin);
-  color: #000000;
+  color: #ffffff;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   align-content: center;
   
@@ -62,12 +62,12 @@ text-align: center;
 
 const SideNav = styled.div`
   height: 100%;
-  width: ${props => props.navToggled ? "150px" : "0"}; 
+  width: ${props => props.navToggled ? "200px" : "0"}; 
   position: fixed; 
   z-index: 1; 
   top: 80px; 
   left: 0;
-  background-color: #e1f1ff; 
+  background-color: #334152; 
   overflow-x: hidden; 
   transition: 0.5s; 
   box-shadow: 4px 0 5px -2px rgba(0,0,0,0.2);
@@ -82,7 +82,7 @@ const SideNav = styled.div`
     outline:0;
     text-decoration: none;
     font-size: 20px;
-    color: #818181;
+    color: #ffffff;
     display: grid;
     grid-template-columns: 50px 1fr;
     transition: 0.5s;
@@ -91,8 +91,8 @@ const SideNav = styled.div`
     font-weight: 600;
     
     &:hover {
-      background-color: #ffffff;
-      color: #000000;
+      background-color: #009b91;
+      //color: #000000;
     }
   }
   
@@ -144,16 +144,16 @@ class App extends React.Component {
               {this.props.selectedPath === '/logs/details'
                 ? <div className={"c1"}>
                   <Button onClick={this.toggleNav}>
-                    <Icons.Hamburger/>
+                    <Icons.Hamburger color={"#FFFFFF"}/>
                   </Button>
                   <Button>
                     <Link onClick={() => this.selectPath('/logs')} to={"/logs"}>
-                      <Icons.Arrow/>
+                      <Icons.Arrow color={"#FFFFFF"}/>
                     </Link>
                   </Button>
                 </div>
                 : <Button className={"c1"} onClick={this.toggleNav}>
-                  <Icons.Hamburger/>
+                  <Icons.Hamburger color={"#FFFFFF"}/>
                 </Button>
               }
               <div className={"c2"}>
@@ -183,7 +183,7 @@ class App extends React.Component {
                 onClick={() => this.selectPath('/logs')}
                 to="/logs"
               >
-                <Icons.Log width={"35px"} height={"35px"}/>
+                <Icons.Log color={"#FFFFFF"} width={"35px"} height={"35px"}/>
                 <div>Logs</div>
               </Link>
               <Link
@@ -191,7 +191,7 @@ class App extends React.Component {
                 onClick={() => this.selectPath('/map')}
                 to="/map"
               >
-                <Icons.Map width={"35px"} height={"35px"}/>
+                <Icons.Map color={"#FFFFFF"} width={"35px"} height={"35px"}/>
                 <div>Map</div>
               </Link>
               <Link
@@ -199,14 +199,14 @@ class App extends React.Component {
                 onClick={() => this.selectPath('/panel')}
                 to="/panel"
               >
-                <Icons.Sextant width={"35px"} height={"35px"}/>
+                <Icons.Sextant color={"#FFFFFF"} width={"35px"} height={"35px"}/>
                 <div>Panel</div>
               </Link>
               <Link
                 className={"link"}
                 onClick={() => this.selectPath('/settings')}
                 to="/settings">
-                <Icons.Settings width={"35px"} height={"35px"}/>
+                <Icons.Settings color={"#FFFFFF"} width={"35px"} height={"35px"}/>
                 <div>Settings</div>
               </Link>
             </SideNav>

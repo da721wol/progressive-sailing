@@ -5,6 +5,10 @@ import styled from "styled-components";
 import {convertAngle, convertSpeed, convertTime} from "../UnitConverter"
 
 const Container = styled.div`
+  margin: 10px;
+  box-shadow: ${props => props.id === props.selected  ? " inset 0 4px 8px 0 rgba(0,0,0,0.2)" : "0 4px 8px 0 rgba(0,0,0,0.2)"};
+  transition: 0.3s;
+  border-radius: 10px;
   display: grid;
   grid-gap: 5px;
   grid-template-areas:
@@ -19,8 +23,8 @@ export function LogEntry(props) {
   let time = convertTime(props.logEntry.content.navigation.datetime.value, props.settings.timeFormat);
 
   return (
-    <div className="card" onClick={props.customClickEvent}>
-      <Container>
+    <div onClick={props.customClickEvent}>
+      <Container selected={props.selected} id={props.logEntry.id}>
         <div className={"time"}>
           {props.logEntry.content.navigation.datetime
             ? time

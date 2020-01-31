@@ -235,8 +235,7 @@ export class LogDetail extends React.Component {
                       <div>{getIcon(k)}</div>
                       <div>{this.capitalize(k)}</div>
                       <div>{this.roundValue(this.convert(detail[key][k].value, unit))}</div>
-                      <div>{this.getSettingsUnit(unit)}
-                      </div>
+                      <div>{this.getSettingsUnit(unit)}</div>
                     </ValueListItem>
                   })}
                 </Category>);
@@ -266,7 +265,45 @@ export class LogDetail extends React.Component {
                     {getIcon(key, "35px", "35px")}
                     {this.capitalize(key)}
                   </TitleBar>
-                    <div>{key.newVersion ? key.newVersion.value.message : 'value not found'}</div>
+                    <div>{detail[key].newVersion ? detail[key].newVersion.value.message : 'value not found'}</div>
+                </Category>
+              );
+            case 'batteries':
+              return (
+                <Category key={key}>
+                  <TitleBar weight={500}>
+                    {getIcon(key, "35px", "35px")}
+                    {this.capitalize(key)}
+                  </TitleBar>
+                  {Object.keys(detail[key]).map(battery => {
+                    return <Category key={battery}>
+                      <TitleBar weight={400}>{battery}</TitleBar>
+                      <ValueListItem>
+                        <div>{getIcon('capacity')}</div>
+                        <div>Capacity(Time Remaining)</div>
+                        <div>{detail[key][battery].capacity.timeRemaining.value}</div>
+                        <div>{detail[key][battery].capacity.timeRemaining.meta.units}</div>
+                      </ValueListItem>
+                      <ValueListItem>
+                        <div>{getIcon('voltage')}</div>
+                        <div>Voltage</div>
+                        <div>{detail[key][battery].voltage.value}</div>
+                        <div>{detail[key][battery].voltage.meta.units}</div>
+                      </ValueListItem>
+                      <ValueListItem>
+                        <div>{getIcon('')}</div>
+                        <div>Current</div>
+                        <div>{detail[key][battery].current.value}</div>
+                        <div>{detail[key][battery].current.meta.units}</div>
+                      </ValueListItem>
+                      <ValueListItem>
+                        <div>{getIcon('temperature')}</div>
+                        <div>Temperature</div>
+                        <div>{detail[key][battery].temperature.value}</div>
+                        <div>{detail[key][battery].temperature.meta.units}</div>
+                      </ValueListItem>
+                    </Category>
+                  })}
                 </Category>
               );
             default:

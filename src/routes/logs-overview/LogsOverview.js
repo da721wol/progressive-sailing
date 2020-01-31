@@ -5,6 +5,7 @@ import './LogsOverview.css'
 import { connect } from 'react-redux';
 import { getLogs, getSelectedLog, getSettings } from '../../redux/selectors';
 import { selectLog, selectPath } from '../../redux/actions';
+import styled from "styled-components";
 
 const LogDetails = lazy(() => import('../../routes/log-details/LogDetails'));
 
@@ -50,6 +51,7 @@ class LogsOverview extends React.Component {
   }
 
   selectLog(log) {
+
     this.setState({selectedLog: log});
     this.props.selectLog(log.id, log.content)
   }
@@ -85,12 +87,15 @@ function DesktopView(props) {
       <div className={"log-list"}>
         {props.logs && props.logs.length
           ? props.logs.slice(0).reverse().map((log, index) => {
-            return <LogEntry
-              key={`log-${log.id}`}
-              logEntry={log}
-              customClickEvent={props.selectLog.bind(this, log)}
-              settings={props.settings}
-            />
+            return (
+              <LogEntry
+                key={log.id}
+                logEntry={log}
+                customClickEvent={props.selectLog.bind(this, log)}
+                settings={props.settings}
+                selected={props.selectedLog ? props.selectedLog.id : null }
+              />
+            )
           })
           : 'No Logs yet!'}
       </div>
