@@ -14,3 +14,5 @@ export const getSelectedLog = store => store.logs.selectedLog;
 export const getSelectedPath = store => store.path.selectedPath;
 
 export const getSettings = store => store.settings;
+
+export const getLogTypes = store => store.logTypes;

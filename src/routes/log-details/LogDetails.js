@@ -57,8 +57,6 @@ class LogDetails extends React.Component {
 
   render() {
     let columns = this.getNumberOfColumns(window.innerWidth);
-    let cardsLength = Object.keys(this.props.selectedLog.content).length;
-    let log = this.props.selectedLog.content;
     return (
       <DesktopColumns>
         {columns.map(column => {
@@ -69,18 +67,13 @@ class LogDetails extends React.Component {
                   return (
                     <LogDetail settings={this.props.settings} key={category} name={category} detail={this.props.selectedLog.content[category]}/>
                   )
+                } else {
+                  return null
                 }
               })}
             </DetailsList>
           )
         })}
-        {/*{Object.keys(this.props.selectedLog.content).map(category => {*/}
-        {/*  return (*/}
-        {/*    <DetailsList key={category}>*/}
-        {/*      <LogDetail settings={this.props.settings} key={category} name={category} detail={this.props.selectedLog.content[category]}/>*/}
-        {/*    </DetailsList>*/}
-        {/*  )*/}
-        {/*})}*/}
       </DesktopColumns>
     )
 

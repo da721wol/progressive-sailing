@@ -5,7 +5,6 @@ import './LogsOverview.css'
 import { connect } from 'react-redux';
 import { getLogs, getSelectedLog, getSettings } from '../../redux/selectors';
 import { selectLog, selectPath } from '../../redux/actions';
-import styled from "styled-components";
 
 const LogDetails = lazy(() => import('../../routes/log-details/LogDetails'));
 

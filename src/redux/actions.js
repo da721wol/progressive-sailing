@@ -3,6 +3,7 @@ import {
   SELECT_LOG,
   SELECT_PATH,
   SET_SETTING,
+  ADD_LOG_TYPE
 } from './actionTypes';
 import {store} from './store';
 
@@ -30,5 +31,10 @@ export const selectPath = content => ({
 
 export const setSettings = content => ({
   type: SET_SETTING,
+  payload: content
+});
+
+export const addLogType = content => ({
+  type: ADD_LOG_TYPE,
   payload: content
 });

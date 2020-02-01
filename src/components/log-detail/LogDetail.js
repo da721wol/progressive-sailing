@@ -12,12 +12,6 @@ const Container = styled.div`
   padding: 15px;
 `;
 
-const Button = styled.div`
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  
-`;
-
 const TitleBar = styled.div`
   display: grid;
   grid-template-columns: 50px 1fr 35px;
@@ -29,7 +23,6 @@ const TitleBar = styled.div`
 `;
 
 const Category = styled.div`
-  //border: solid 1px black;
   border-radius: 10px;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
   padding: 10px;
@@ -48,17 +41,6 @@ const ValueListItem = styled.div`
   align-items: center;
   justify-items: start;
 `;
-
-const getRowAmount = function (log) {
-  if (log.detail.value) {
-    if (typeof log.detail.value !== "object") {
-      return 2
-    }
-    return Object.keys(log.detail.value).length
-  } else {
-    return Object.keys(log.detail).length / 2 + 1
-  }
-};
 
 const getIcon = function (name, width, height) {
   switch (name) {
@@ -132,9 +114,6 @@ const getIcon = function (name, width, height) {
 };
 
 export class LogDetail extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   capitalize(word) {
     return word[0].toUpperCase() + word.slice(1).replace(/([a-z])([A-Z])/g, '$1 $2');
@@ -184,7 +163,6 @@ export class LogDetail extends React.Component {
 
   valueRender(detail) {
     let renderElement;
-    // console.log(detail);
     switch(typeof detail) {
       case 'string':
         renderElement = <p>{detail}</p>;
@@ -307,63 +285,8 @@ export class LogDetail extends React.Component {
                 </Category>
               );
             default:
-              console.log(key);
-              break;
+              return <TitleBar weight={400}>{key}</TitleBar>
           }
-
-          // if (typeof detail[key].value !== 'object' && detail[key].value || detail[key].value === 0) {
-          //   console.log(`case a: ${key}`);
-          //   let unit = this.getUnit(detail, key);
-          //   return <ValueListItem key={key}>
-          //     <div>{getIcon(key, "35px", "35px")}</div>
-          //     <div>{this.capitalize(key)}</div>
-          //     <div>{this.roundValue(this.convert(detail[key].value, unit))}</div>
-          //     <div>{this.getSettingsUnit(unit)}
-          //     </div>
-          //   </ValueListItem>;
-          // } else if (key !== 'server') {
-          //   if (detail[key].value) {
-          //     console.log(`case b: ${key}`);
-          //     return (
-          //       <Category key={key}>
-          //         <TitleBar weight={500}>
-          //           {getIcon(key, "35px", "35px")}
-          //           {this.capitalize(key)}
-          //         </TitleBar>
-          //       {Object.keys(detail[key].value).map(k => {
-          //       let unit = this.getUnit(detail, key);
-          //       return (
-          //         <ValueListItem key={key + k}>
-          //           <div>{getIcon(k, "35px", "35px")}</div>
-          //           <div>{this.capitalize(k)}</div>
-          //           <div>{this.roundValue(this.convert(detail[key].value[k], unit))}</div>
-          //           <div>{this.getSettingsUnit(unit)}
-          //           </div>
-          //         </ValueListItem>
-          //       )
-          //     })}
-          //       </Category>)
-          //   } else {
-          //     console.log(`case c: ${key}`);
-          //     return (
-          //       <Category key={key}>
-          //         <TitleBar weight={500}>
-          //           {getIcon(key, "35px", "35px")}
-          //           {this.capitalize(key)}
-          //         </TitleBar>
-          //       {Object.keys(detail[key]).map(k => {
-          //       let unit = this.getUnit(detail[key], k);
-          //       return <ValueListItem key={key + k}>
-          //         <div>{getIcon(k)}</div>
-          //         <div>{this.capitalize(k)}</div>
-          //         <div>{this.roundValue(this.convert(detail[key][k].value, unit))}</div>
-          //         <div>{this.getSettingsUnit(unit)}
-          //         </div>
-          //       </ValueListItem>
-          //     })}
-          //       </Category>)
-          //   }
-          // }
         });
         break;
       default:

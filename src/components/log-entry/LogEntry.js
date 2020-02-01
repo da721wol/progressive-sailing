@@ -32,7 +32,7 @@ export function LogEntry(props) {
           }
         </div>
         <div className={"title"}>
-          Engine on
+          {props.logEntry.content.logType}
         </div>
         <div className={"type-icon"}>
           <Icons.Rotor

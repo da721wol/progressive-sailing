@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "http://friedcode.github.io/progressive-sailing",
   "dependencies": {
+    "@material-ui/core": "^4.9.0",
     "@signalk/client": "^2.0.4",
     "convert-units": "^2.3.4",
     "pwa-helpers": "^0.9.1",
