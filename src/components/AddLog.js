@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {addLog, addLogType} from '../redux/actions';
 import {getLogTypes} from "../redux/selectors";
 import styled from "styled-components";
+import {getIcon} from "./icons";
 import {Dialog, DialogTitle, List, ListItem, ListItemText} from "@material-ui/core";
 
 const mapStateToProps = state => {
@@ -106,6 +107,7 @@ function LogDialog(props) {
       <List>
         {logTypes.map(type => (
           <ListItem className={'item'} button onClick={() => handleListItemClick(type)} key={type}>
+            {getIcon(type, "40px", "40px")}
             <ListItemText primary={type}/>
           </ListItem>
         ))}

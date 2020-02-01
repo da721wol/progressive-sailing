@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Icons from '../icons'
+import Icons, {getIcon} from '../icons'
 import {
   convertAngle, convertDate, convertDistance,
   convertSpeed,
@@ -42,76 +42,6 @@ const ValueListItem = styled.div`
   justify-items: start;
 `;
 
-const getIcon = function (name, width, height) {
-  switch (name) {
-    case 'position':
-      return <Icons.Position width={width} height={height}/>;
-    case 'longitude':
-      return <Icons.Longitude width={width} height={height}/>;
-    case 'latitude':
-      return <Icons.Latitude width={width} height={height}/>;
-    case 'datetime':
-      return <Icons.Datetime width={width} height={height}/>;
-    case 'gnss':
-      return <Icons.Gnss width={width} height={height}/>;
-    case 'magneticVariation':
-      return <Icons.MagneticVariation width={width} height={height}/>;
-    case 'satellites':
-      return <Icons.Satellites width={width} height={height}/>;
-    case 'Speed':
-      return <Icons.Speed width={width} height={height}/>;
-    case 'speedThroughWater':
-      return <Icons.SpeedThroughWater width={width} height={height}/>;
-    case 'trip':
-      return <Icons.Trip width={width} height={height}/>;
-    case 'date':
-      return <Icons.Date width={width} height={height}/>;
-    case 'time':
-      return <Icons.Datetime width={width} height={height}/>;
-    case 'antennaAltitude':
-      return <Icons.AntennaAltitude width={width} height={height}/>;
-    case 'horizontalDilution':
-      return <Icons.HorizontalDilution width={width} height={height}/>;
-    case 'type':
-      return <Icons.Gnss width={width} height={height}/>;
-    case 'log':
-      return <Icons.Log width={width} height={height}/>;
-    case 'speedOverGround':
-      return <Icons.SpeedOverGround width={width} height={height}/>;
-    case 'courseOverGroundTrue':
-      return <Icons.CourseOverGround width={width} height={"35"}/>;
-    case 'headingTrue':
-      return <Icons.Compass width={width} height={height}/>;
-    case 'water':
-      return <Icons.Water width={width} height={height}/>;
-    case 'current':
-      return <Icons.Current width={width} height={height}/>;
-    case 'navigation':
-      return <Icons.Navigation width={width} height={height}/>;
-    case 'uuid':
-      return <Icons.Uuid width={width} height={height}/>;
-    case 'name':
-      return <Icons.Name width={width} height={height}/>;
-    case 'performance':
-      return <Icons.Performance width={width} height={height}/>;
-    case 'environment':
-      return <Icons.Environment width={width} height={height}/>;
-    case 'wind':
-      return <Icons.Wind width={width} height={height}/>;
-    case 'depth':
-      return <Icons.Depth width={width} height={height}/>;
-    case 'mmsi':
-      return <Icons.Mmsi width={width} height={height}/>;
-    case 'electrical':
-      return <Icons.Electrical width={width} height={height}/>;
-    case 'batteries':
-      return <Icons.Battery width={width} height={height}/>;
-    case 'notifications':
-      return <Icons.Notification width={width} height={height}/>;
-    default:
-      break;
-  }
-};
 
 export class LogDetail extends React.Component {
 
@@ -165,7 +95,10 @@ export class LogDetail extends React.Component {
     let renderElement;
     switch(typeof detail) {
       case 'string':
-        renderElement = <p>{detail}</p>;
+        renderElement = <ValueListItem key={detail}>
+          <div>{getIcon(detail, "35px", "35px")}</div>
+          <div>{detail}</div>
+        </ValueListItem>;
         break;
       case 'object':
         renderElement = Object.keys(detail).map(key => {

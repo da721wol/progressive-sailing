@@ -1,6 +1,6 @@
 import React from 'react';
 import './LogEntry.css'
-import Icons from '../icons'
+import Icons, {getIcon} from '../icons'
 import styled from "styled-components";
 import {convertAngle, convertSpeed, convertTime} from "../UnitConverter"
 
@@ -35,10 +35,7 @@ export function LogEntry(props) {
           {props.logEntry.content.logType}
         </div>
         <div className={"type-icon"}>
-          <Icons.Rotor
-            width={"60px"}
-            height={"60px"}
-          />
+          {getIcon(props.logEntry.content.logType, "60px", "60px")}
         </div>
         <div className={"d1"}>
           <Icons.Position
