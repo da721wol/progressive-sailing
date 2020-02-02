@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/progressive-sailing/precache-manifest.ed77bedf98ee30952a9fb64726352031.js"
+  "/progressive-sailing/precache-manifest.b58d1650f77c5cb155ce2ca1f973a99d.js"
 );
 
 self.addEventListener('message', (event) => {
