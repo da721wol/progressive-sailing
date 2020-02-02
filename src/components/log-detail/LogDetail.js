@@ -31,10 +31,10 @@ const Category = styled.div`
 
 const ValueList = styled.div`
   display: grid;
-  grid-row-gap: 10px;
 `;
 
 const ValueListItem = styled.div`
+  margin-bottom: 10px;
   display: grid;
   grid-gap: 10px;
   grid-template-columns: 35px 1fr 1fr 35px;
@@ -97,7 +97,7 @@ export class LogDetail extends React.Component {
       case 'string':
         renderElement = <ValueListItem key={detail}>
           <div>{getIcon(detail, "35px", "35px")}</div>
-          <div>{detail}</div>
+          <div style={{wordBreak: 'break-all'}}>{detail}</div>
         </ValueListItem>;
         break;
       case 'object':

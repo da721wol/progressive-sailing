@@ -18,20 +18,20 @@ const DetailsList = styled.div`
 
 const DesktopColumns = styled.div`
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: 1fr;
   overflow-y: scroll;
   max-width: 100%;
   
   @media (min-width: 1020px) {
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr 1fr;
   }
   
   @media (min-width: 1400px) {
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr ;
   }
   
   @media (min-width: 2500px) {
-    grid-template-columns: repeat(6, auto);
+    grid-template-columns: repeat(6, 1fr);
   }
 `;
 
