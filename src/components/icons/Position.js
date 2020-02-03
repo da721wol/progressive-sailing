@@ -28,10 +28,10 @@ function Position(props) {
         x="300"
         y="278.296"
         fontFamily="'ArialMT', 'Arial', sans-serif"
-        fontSize="139.605"
+        fontSize="110.605"
       >
-        {props.latitude ?
-          props.latitude.toFixed(1)
+        {props.longitude ?
+          props.longitude.value.substr(0,6) + props.longitude.cardinal
           : null
         }
       </text>
@@ -40,10 +40,10 @@ function Position(props) {
         x="300"
         y="418.296"
         fontFamily="'ArialMT', 'Arial', sans-serif"
-        fontSize="139.605"
+        fontSize="110.605"
       >
-        {props.longitude ?
-          props.longitude.toFixed(1)
+        {props.latitude ?
+          props.latitude.value.substr(0,6) + props.latitude.cardinal
           : null
         }
       </text>

@@ -16,6 +16,7 @@ import {connect} from "react-redux";
 const LogsOverview = lazy(() => import('../../routes/logs-overview/LogsOverview'));
 const LogDetails = lazy(() => import('../../routes/log-details/LogDetails'));
 const Settings = lazy(() => import('../../routes/settings/Settings'));
+const BoatDetails = lazy(() => import('../../routes/boat-details/BoatDetails'));
 
 const mapStateToProps = state => {
   return {
@@ -174,6 +175,8 @@ class App extends React.Component {
               <Route path={"/panel"}>
                 Panel!
               </Route>
+              <Route path={"/boat"} component={BoatDetails}>
+              </Route>
               <Route path={"/settings"} component={Settings}>
               </Route>
             </Switch>
@@ -185,6 +188,13 @@ class App extends React.Component {
               >
                 <Icons.Log color={"#FFFFFF"} width={"35px"} height={"35px"}/>
                 <div>Logs</div>
+              </Link>
+              <Link
+                to={"/boat"}
+                className={"link"}
+                onClick={() => this.selectPath('/boat')}>
+                <Icons.Name color={"#FFFFFF"} width={"35px"} height={"35px"}/>
+                <div>Boat&nbsp;Details</div>
               </Link>
               <Link
                 className={"link"}

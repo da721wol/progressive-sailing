@@ -63,7 +63,7 @@ class LogDetails extends React.Component {
           return (
             <DetailsList key={column}>
               {Object.keys(this.props.selectedLog.content).map((category, index) => {
-                if (index % columns.length === column) {
+                if (index % columns.length === column && typeof this.props.selectedLog.content[category] !== 'string') {
                   return (
                     <LogDetail settings={this.props.settings} key={category} name={category} detail={this.props.selectedLog.content[category]}/>
                   )

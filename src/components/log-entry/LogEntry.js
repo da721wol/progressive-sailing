@@ -2,7 +2,7 @@ import React from 'react';
 import './LogEntry.css'
 import Icons, {getIcon} from '../icons'
 import styled from "styled-components";
-import {convertAngle, convertSpeed, convertTime} from "../UnitConverter"
+import {convertAngle, convertSpeed, convertTime, convertDMS} from "../UnitConverter"
 
 const Container = styled.div`
   margin: 10px;
@@ -32,15 +32,15 @@ export function LogEntry(props) {
           }
         </div>
         <div className={"title"}>
-          {props.logEntry.content.logType}
+          {props.logEntry.content.logType.value}
         </div>
         <div className={"type-icon"}>
-          {getIcon(props.logEntry.content.logType, "60px", "60px")}
+          {getIcon(props.logEntry.content.logType.value, "60px", "60px")}
         </div>
         <div className={"d1"}>
           <Icons.Position
-            longitude={props.logEntry.content.navigation.position.value.longitude}
-            latitude={props.logEntry.content.navigation.position.value.latitude}
+            longitude={convertDMS(props.logEntry.content.navigation.position.value.longitude, 'longitude')}
+            latitude={convertDMS(props.logEntry.content.navigation.position.value.latitude, 'latitude')}
             width={"60px"}
             height={"60px"}
           />

@@ -50,4 +50,23 @@ export const convertTemperature = (val, setting) => {
   }
 };
 
+const toDegreeAndMinutes = (coordinate) => {
+  const absolute = Math.abs(coordinate);
+  const degrees = Math.floor(absolute);
+  const minutesNotTruncated = (absolute - degrees) * 60;
+  const minutes = Math.floor(minutesNotTruncated);
+  const seconds = Math.floor((minutesNotTruncated - minutes) * 60);
+  return `${degrees}°${minutes}'${seconds}''`
+};
 
+export const convertDMS = (coordinate, type) => {
+  let value, cardinal;
+  if (type === 'longitude') {
+    value = toDegreeAndMinutes(coordinate);
+    cardinal = coordinate >= 0 ? "N" : "S";
+  } else {
+    value = toDegreeAndMinutes(coordinate);
+    cardinal = coordinate >= 0 ? "E" : "W";
+  }
+  return {value, cardinal}
+}

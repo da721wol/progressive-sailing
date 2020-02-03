@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {addLog, addLogType} from '../redux/actions';
+import {addLog, addLogType, setBoatDetails} from '../redux/actions';
 import {getLogTypes} from "../redux/selectors";
 import styled from "styled-components";
 import {getIcon} from "./icons";
@@ -31,13 +31,26 @@ class AddLog extends React.Component {
       log: null,
       onClose: false,
       open: false,
-      logType: null
+      logType: null,
+      boatDetails: null
     };
     this.handleAddLog = this.handleAddLog.bind(this);
     this.handleClickOpen = this.handleClickOpen.bind(this);
     this.handleOnClose = this.handleOnClose.bind(this);
   }
 
+  getBoatDetails(log) {
+    let details = {};
+    // eslint-disable-next-line
+    Object.keys(log).map(key => {
+      if (typeof log[key] === 'string') {
+        details[key] = log[key]
+      }
+    });
+    return details
+  }
+
+  // ec2: http://ec2-3-120-129-157.eu-central-1.compute.amazonaws.com/signalk/v1/api/vessels/self
   // local: http://localhost:3000/signalk/v1/api/vessels/self
   // demo server: http://demo.signalk.org/signalk/v1/api/vessels/self
   handleAddLog() {
@@ -51,10 +64,12 @@ class AddLog extends React.Component {
               meta: {description: "Time and Date from the GNSS Positioning System"}
             };
           }
+          this.setState({boatDetails: this.getBoatDetails(result)});
           result.logType = this.state.logType;
           this.setState({log: result});
+          this.props.setBoatDetails(this.state.boatDetails);
           this.props.addLog(this.state.log);
-          this.setState({log: ''})
+          this.setState({log: '', boatDetails: '', logType: ''})
         },
         (error) => {
           console.log(error);
@@ -72,7 +87,7 @@ class AddLog extends React.Component {
   handleOnClose(value) {
     this.setState({
       open: false,
-      logType: value
+      logType: {value}
     });
   }
 
@@ -116,4 +131,4 @@ function LogDialog(props) {
   )
 }
 
-export default connect(mapStateToProps, {addLog, addLogType})(AddLog)
+export default connect(mapStateToProps, {addLog, addLogType, setBoatDetails})(AddLog)

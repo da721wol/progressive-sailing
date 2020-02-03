@@ -5,7 +5,8 @@ import {
   convertAngle, convertDate, convertDistance,
   convertSpeed,
   convertTemperature,
-  convertTime
+  convertTime,
+  convertDMS
 } from "../UnitConverter"
 
 const Container = styled.div`
@@ -49,19 +50,28 @@ export class LogDetail extends React.Component {
     return word[0].toUpperCase() + word.slice(1).replace(/([a-z])([A-Z])/g, '$1 $2');
   };
 
-  convert(value, unit=undefined) {
-    switch(unit) {
-      case "C": case "F": case "K":
+  convert(value, unit = undefined) {
+    switch (unit) {
+      case "C":
+      case "F":
+      case "K":
         return convertTemperature(value, this.props.settings.temperature);
-      case "m": case "i":
+      case "m":
+      case "i":
         return convertDistance(value, this.props.settings.distance);
-      case "m/s": case "km/h": case "knot": case "m/h":
+      case "m/s":
+      case "km/h":
+      case "knot":
+      case "m/h":
         return convertSpeed(value, this.props.settings.speed);
-      case "deg": case "rad":
+      case "deg":
+      case "rad":
         return convertAngle(value, this.props.settings.angle);
-      case "mm/dd/yy": case "dd/mm/yy":
+      case "mm/dd/yy":
+      case "dd/mm/yy":
         return convertDate(value, this.props.settings.dateFormat);
-      case "24-hour": case "am/pm":
+      case "24-hour":
+      case "am/pm":
         return convertTime(value, this.props.settings.timeFormat);
       default:
         return value
@@ -69,14 +79,21 @@ export class LogDetail extends React.Component {
   };
 
   getSettingsUnit(unit) {
-    switch(unit) {
-      case "C": case "F": case "K":
+    switch (unit) {
+      case "C":
+      case "F":
+      case "K":
         return this.props.settings.temperature;
-      case "m": case "i":
+      case "m":
+      case "i":
         return this.props.settings.distance;
-      case "m/s": case "km/h": case "knot": case "m/h":
+      case "m/s":
+      case "km/h":
+      case "knot":
+      case "m/h":
         return this.props.settings.speed;
-      case "deg": case "rad":
+      case "deg":
+      case "rad":
         return this.props.settings.angle;
       default:
         return unit
@@ -91,9 +108,11 @@ export class LogDetail extends React.Component {
     return typeof val === 'number' ? val.toFixed(2) : val
   }
 
+
+
   valueRender(detail) {
     let renderElement;
-    switch(typeof detail) {
+    switch (typeof detail) {
       case 'string':
         renderElement = <ValueListItem key={detail}>
           <div>{getIcon(detail, "35px", "35px")}</div>
@@ -103,9 +122,16 @@ export class LogDetail extends React.Component {
       case 'object':
         renderElement = Object.keys(detail).map(key => {
           switch (key) {
-            case 'speedThroughWater': case 'speedThroughWaterReferenceType': case 'log': case 'speedOverGround':
-            case 'speedOverGroundTrue': case 'courseOverGroundTrue': case 'headingTrue': case 'magneticVariation':
-            case 'courseOverGroundMagnetic': case 'velocityMadeGood':
+            case 'speedThroughWater':
+            case 'speedThroughWaterReferenceType':
+            case 'log':
+            case 'speedOverGround':
+            case 'speedOverGroundTrue':
+            case 'courseOverGroundTrue':
+            case 'headingTrue':
+            case 'magneticVariation':
+            case 'courseOverGroundMagnetic':
+            case 'velocityMadeGood':
               let unit = this.getUnit(detail, key);
               return <ValueListItem key={key}>
                 <div>{getIcon(key, "35px", "35px")}</div>
@@ -113,7 +139,27 @@ export class LogDetail extends React.Component {
                 <div>{this.roundValue(this.convert(detail[key].value, unit))}</div>
                 <div>{this.getSettingsUnit(unit)}</div>
               </ValueListItem>;
-            case 'position': case 'current':
+            case 'position':
+              return (
+                <Category key={key}>
+                  <TitleBar weight={500}>
+                    {getIcon(key, "35px", "35px")}
+                    {this.capitalize(key)}
+                  </TitleBar>
+                  {Object.keys(detail[key].value).map(k => {
+                    let {value, cardinal} = convertDMS(detail[key].value[k], k);
+                    return (
+                      <ValueListItem key={key + k}>
+                        <div>{getIcon(k, "35px", "35px")}</div>
+                        <div>{this.capitalize(k)}</div>
+                        <div>{value}</div>
+                        <div>{cardinal}
+                        </div>
+                      </ValueListItem>
+                    )
+                  })}
+                </Category>);
+            case 'current':
               return (
                 <Category key={key}>
                   <TitleBar weight={500}>
@@ -133,7 +179,12 @@ export class LogDetail extends React.Component {
                     )
                   })}
                 </Category>);
-            case 'gnss': case 'trip': case 'water': case 'wind': case 'depth': case 'courseRhumbline':
+            case 'gnss':
+            case 'trip':
+            case 'water':
+            case 'wind':
+            case 'depth':
+            case 'courseRhumbline':
               return (
                 <Category key={key}>
                   <TitleBar weight={500}>
@@ -176,7 +227,7 @@ export class LogDetail extends React.Component {
                     {getIcon(key, "35px", "35px")}
                     {this.capitalize(key)}
                   </TitleBar>
-                    <div>{detail[key].newVersion ? detail[key].newVersion.value.message : 'value not found'}</div>
+                  <div>{detail[key].newVersion ? detail[key].newVersion.value.message : 'value not found'}</div>
                 </Category>
               );
             case 'batteries':
@@ -217,8 +268,14 @@ export class LogDetail extends React.Component {
                   })}
                 </Category>
               );
+            case 'value':
+              return (<ValueListItem key={key}>
+                  <div>{getIcon(detail[key], "35px", "35px")}</div>
+                  <div>{detail[key]}</div>
+                </ValueListItem>
+              );
             default:
-              return <TitleBar weight={400}>{key}</TitleBar>
+              return null;
           }
         });
         break;

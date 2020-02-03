@@ -3,7 +3,7 @@ import {
   SELECT_LOG,
   SELECT_PATH,
   SET_SETTING,
-  ADD_LOG_TYPE
+  ADD_LOG_TYPE, SET_BOAT_DETAILS
 } from './actionTypes';
 import {store} from './store';
 
@@ -36,5 +36,10 @@ export const setSettings = content => ({
 
 export const addLogType = content => ({
   type: ADD_LOG_TYPE,
+  payload: content
+});
+
+export const setBoatDetails = content => ({
+  type: SET_BOAT_DETAILS,
   payload: content
 });
