@@ -54,7 +54,7 @@ class AddLog extends React.Component {
   // local: http://localhost:3000/signalk/v1/api/vessels/self
   // demo server: http://demo.signalk.org/signalk/v1/api/vessels/self
   handleAddLog() {
-    fetch("http://demo.signalk.org/signalk/v1/api/vessels/self")
+    fetch("http://localhost:3000/signalk/v1/api/vessels/self")
       .then(res => res.json())
       .then((result) => {
           if (!result.datetime) {
